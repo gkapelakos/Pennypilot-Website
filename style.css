@@ -559,8 +559,65 @@ img {
     opacity: 0.6;
 }
 
-/* Mobile Responsive */
+/* Header Container for Full Width */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 40px;
+    /* More padding for wide screens */
+    margin: 0 auto;
+}
+
+/* Navigation Active State */
+.main-nav a.active {
+    color: var(--text-primary);
+    position: relative;
+}
+
+.main-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-blue);
+    border-radius: 2px;
+}
+
+/* FAQ Section */
+.section-faq {
+    padding: 100px 0;
+    background: linear-gradient(to top, var(--bg-dark), #0a0a0a);
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.faq-item h3 {
+    margin-bottom: 12px;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+}
+
+.faq-item p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* Mobile Responsive Adjustments */
 @media (max-width: 900px) {
+    .header-container {
+        padding: 0 24px;
+    }
+
     .hero-grid {
         grid-template-columns: 1fr;
         text-align: center;
@@ -592,13 +649,31 @@ img {
         padding: 0 20px;
     }
 
+    .header-container {
+        padding: 0 20px;
+        /* Keep header horizontal on mobile to save vertical space, 
+           or stack but keep left aligned if strictly needed. 
+           Let's keep it row for better UX and logo left. */
+        flex-direction: row;
+        flex-wrap: wrap;
+        /* Allow wrapping if needed */
+        gap: 16px;
+    }
+
+    /* Force logo to stay left even if we wrap */
+    .logo-area {
+        margin-right: auto;
+    }
+
     .hero-section {
         padding: 40px 0 60px;
     }
 
     .section-features,
     .section-philosophy,
-    .section-downloads {
+    .section-downloads,
+    .section-roadmap,
+    .section-faq {
         padding: 60px 0;
     }
 
@@ -631,17 +706,51 @@ img {
         padding: 15px 0;
     }
 
-    .site-header .container-flex {
-        flex-direction: column;
-        gap: 15px;
+    /* 
+       On very small screens, the nav links might clutter. 
+       Basic solution: scroll horizontally or wrap clearly.
+    */
+    .main-nav {
+        gap: 16px;
+        width: 100%;
+        /* If we want it on a new line */
+        justify-content: center;
+        /* Center links on new line */
+        order: 2;
+        /* Put nav below logo */
+        overflow-x: auto;
+        /* Allow scroll if too many items */
+        padding-bottom: 4px;
+        /* Space for scrollbar if any */
     }
 
-    .feature-card {
-        padding: 24px;
+    /* Override wrapper for logo to stay full width if we want stacked layout,
+       or keep it compact. Let's try stacked layout for mobile 
+       BUT keep logo left aligned visually on its line. */
+    .logo-area {
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     .main-nav {
-        gap: 16px;
+        justify-content: flex-start;
+        /* Left align links too? Or center. */
+        /* User said logo on FAR LEFT ALWAYS. */
+    }
+
+    /* Actually let's try to keep them on one line if possible, or stacked properly */
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        /* Align everything left */
+    }
+
+    .main-nav {
+        width: 100%;
+        justify-content: space-between;
+        /* spread links */
+        flex-wrap: wrap;
+        gap: 12px;
     }
 
     .main-nav a:not(.nav-icon-link) {
