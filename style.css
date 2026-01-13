@@ -258,11 +258,10 @@ img {
 
 .app-screen {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
-    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
-    border-radius: 40px;
-    /* Adjust based on image */
+    border-radius: 24px;
+    /* Clean rounded card look */
 }
 
 /* Features Section */
