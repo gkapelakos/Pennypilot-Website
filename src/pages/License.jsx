@@ -7,7 +7,7 @@ export default function License() {
     }, [])
 
     return (
-        <div className="container" style={{ padding: '80px 24px', maxWidth: '800px', margin: '0 auto' }}>
+        <div className="container section-padding" style={{ maxWidth: '800px', margin: '0 auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '60px' }}>
                 <h1 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>MIT License</h1>
                 <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)' }}>PennyPilot is proud to be open source.</p>

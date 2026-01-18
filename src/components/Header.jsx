@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import { NavLink, useLocation } from 'react-router-dom'
-import { Github } from 'lucide-react'
-import { useEffect } from 'react'
+import { Github, Menu, X } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export default function Header() {
     const { hash } = useLocation();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
         if (hash) {
@@ -15,6 +17,26 @@ export default function Header() {
         }
     }, [hash]);
 
+    // Handle scroll effect
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Close mobile menu on route change
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [hash]);
+
+    const navLinks = [
+        { name: 'Home', path: '/', isHash: false },
+        { name: 'Features', path: '/#features', isHash: true },
+        { name: 'Downloads', path: '/downloads.html', isHash: false },
+    ];
+
     return (
         <header style={{
             position: 'fixed',
@@ -22,29 +44,103 @@ export default function Header() {
             left: 0,
             right: 0,
             zIndex: 100,
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            background: 'rgba(5, 5, 5, 0.7)',
-            borderBottom: '1px solid var(--border-subtle)'
+            transition: 'all 0.3s ease',
+            height: 'var(--header-height)',
+            borderBottom: scrolled ? '1px solid var(--border-subtle)' : '1px solid transparent',
+            background: scrolled ? 'rgba(3, 3, 4, 0.8)' : 'transparent',
+            backdropFilter: scrolled ? 'blur(20px)' : 'none',
         }}>
-            <div className="container" style={{ height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <img src="/assets/pennypilot_logo.png" alt="PennyPilot" style={{ width: '36px', height: '36px' }} />
+            <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', zIndex: 101 }}>
+                    <img src="/assets/pennypilot_logo.png" alt="PennyPilot" style={{ width: '32px', height: '32px' }} />
                     <span style={{ fontWeight: 700, fontSize: '1.25rem', color: '#fff', letterSpacing: '-0.02em' }}>PennyPilot</span>
                 </NavLink>
 
-                <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-                    <NavLink to="/" end className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Home</NavLink>
-                    <a href="/#features" className="nav-link">Features</a>
-                    <NavLink to="/downloads.html" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Downloads</NavLink>
+                {/* Desktop Nav */}
+                <nav className="desktop-nav" style={{ display: 'none', alignItems: 'center', gap: '32px' }}>
+                    {navLinks.map((link) => (
+                        link.isHash ? (
+                            <a key={link.name} href={link.path} className="nav-link" style={{
+                                color: 'var(--text-secondary)',
+                                fontWeight: 500,
+                                fontSize: '0.95rem',
+                                transition: 'color 0.2s'
+                            }}>{link.name}</a>
+                        ) : (
+                            <NavLink key={link.name} to={link.path} end
+                                className={({ isActive }) => isActive ? "active-link" : ""}
+                                style={({ isActive }) => ({
+                                    color: isActive ? 'var(--text-main)' : 'var(--text-secondary)',
+                                    fontWeight: 500,
+                                    fontSize: '0.95rem',
+                                    transition: 'color 0.2s'
+                                })}
+                            >
+                                {link.name}
+                            </NavLink>
+                        )
+                    ))}
+
+                    <div style={{ width: '1px', height: '24px', background: 'var(--border-subtle)' }}></div>
 
                     <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer"
                         style={{ display: 'flex', alignItems: 'center', color: 'var(--text-secondary)', transition: 'color 0.2s' }}
                         className="github-link">
-                        <Github size={22} />
+                        <Github size={20} />
+                    </a>
+                </nav>
+
+                {/* Mobile Menu Toggle */}
+                <button
+                    className="mobile-toggle"
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    style={{ zIndex: 101, display: 'flex', color: 'var(--text-main)' }}
+                    aria-label="Toggle menu"
+                >
+                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+            </div>
+
+            {/* Mobile Nav Overlay & Menu */}
+            <div className={`mobile-nav-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)} />
+
+            <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+                <nav style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    {navLinks.map((link) => (
+                        link.isHash ? (
+                            <a key={link.name} href={link.path} onClick={() => setIsMobileMenuOpen(false)}
+                                style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-main)' }}>
+                                {link.name}
+                            </a>
+                        ) : (
+                            <NavLink key={link.name} to={link.path} end onClick={() => setIsMobileMenuOpen(false)}
+                                className={({ isActive }) => isActive ? "active" : ""}
+                                style={({ isActive }) => ({
+                                    fontSize: '1.25rem',
+                                    fontWeight: 600,
+                                    color: isActive ? 'var(--primary)' : 'var(--text-main)'
+                                })}
+                            >
+                                {link.name}
+                            </NavLink>
+                        )
+                    ))}
+                    <div style={{ height: '1px', background: 'var(--border-subtle)', margin: '10px 0' }}></div>
+                    <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer"
+                        style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.1rem', color: 'var(--text-secondary)' }}>
+                        <Github size={24} /> GitHub Repo
                     </a>
                 </nav>
             </div>
+
+            <style>{`
+                @media (min-width: 768px) {
+                    .desktop-nav { display: flex !important; }
+                    .mobile-toggle { display: none !important; }
+                }
+                .active-link { color: var(--text-main) !important; }
+                .github-link:hover { color: var(--text-main) !important; }
+            `}</style>
         </header>
     )
 }
