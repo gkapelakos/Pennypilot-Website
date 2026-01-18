@@ -31,6 +31,18 @@ export default function Header() {
         setIsMobileMenuOpen(false);
     }, [hash]);
 
+    // Lock body scroll when mobile menu is open
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isMobileMenuOpen]);
+
     const navLinks = [
         { name: 'Home', path: '/', isHash: false },
         { name: 'Features', path: '/features.html', isHash: false },

@@ -145,12 +145,12 @@ export default function Features() {
                 </div>
 
                 <div className="section-padding" style={{ textAlign: 'center', marginTop: '40px' }}>
-                    <div className="glass-panel" style={{ padding: '80px 40px', borderRadius: 'var(--radius-lg)', background: 'linear-gradient(180deg, rgba(20,20,23,0.6) 0%, rgba(59,130,246,0.05) 100%)' }}>
-                        <h2 style={{ marginBottom: '24px', fontSize: '2.5rem' }}>Ready to take control?</h2>
+                    <div className="glass-panel" style={{ padding: '60px 24px', borderRadius: 'var(--radius-lg)', background: 'linear-gradient(180deg, rgba(20,20,23,0.6) 0%, rgba(59,130,246,0.05) 100%)' }}>
+                        <h2 style={{ marginBottom: '24px', fontSize: 'clamp(1.75rem, 4vw, 2.5rem)' }}>Ready to take control?</h2>
                         <p style={{ color: 'var(--text-secondary)', marginBottom: '40px', fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto 40px' }}>
                             Join thousands of users who are tracking their finances without compromising their privacy.
                         </p>
-                        <a href="/downloads.html" className="btn btn-primary" style={{ padding: '16px 48px', fontSize: '1.1rem' }}>
+                        <a href="/downloads.html" className="btn btn-primary" style={{ padding: '16px 48px', fontSize: '1.1rem', width: '100%', maxWidth: '320px' }}>
                             Download Latest APK
                         </a>
                     </div>
@@ -163,7 +163,8 @@ export default function Features() {
                     @media (max-width: 900px) {
                         .feature-group { text-align: center; }
                         .feature-group .feature-text { display: flex; flex-direction: column; align-items: center; }
-                        .feature-group ul { align-items: center; }
+                        .feature-group ul { align-items: flex-start; text-align: left; }
+                        .feature-visual { margin-top: 40px; }
                     }
                 `}</style>
             </div>

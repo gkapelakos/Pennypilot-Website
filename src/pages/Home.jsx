@@ -17,7 +17,7 @@ export default function Home() {
 
             <section className="hero-section" style={{
                 padding: 'calc(var(--header-height) + 40px) 0 60px',
-                minHeight: '85vh',
+                minHeight: '100dvh', /* Use dvh for mobile stability */
                 display: 'flex',
                 alignItems: 'center',
                 position: 'relative',
@@ -42,21 +42,21 @@ export default function Home() {
                         <h1 style={{ marginBottom: '24px', letterSpacing: '-0.03em' }}>
                             Your personal financial <span className="text-gradient">navigator.</span>
                         </h1>
-                        <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', marginBottom: '40px', maxWidth: '580px', lineHeight: 1.5 }}>
+                        <p style={{ fontSize: 'clamp(1.1rem, 2vw, 1.25rem)', color: 'var(--text-secondary)', marginBottom: '40px', maxWidth: '580px', lineHeight: 1.6 }}>
                             The only finance tracker that runs <strong style={{ color: 'var(--text-main)' }}>100% on your device</strong>. No servers. No selling your data. Just intelligent, local automation.
                         </p>
                         {/* ... buttons ... */}
-                        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                            <Link to="/downloads.html" className="btn btn-primary">
+                        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                            <Link to="/downloads.html" className="btn btn-primary" style={{ width: '100%', maxWidth: 'sm' }}>
                                 <ArrowDown size={20} />
                                 Download APK
                             </Link>
-                            <Link to="/features.html" className="btn btn-secondary">
+                            <Link to="/features.html" className="btn btn-secondary" style={{ width: '100%', maxWidth: 'sm' }}>
                                 See How It Works
                             </Link>
                         </div>
                         {/* ... footer badges ... */}
-                        <div style={{ marginTop: '40px', display: 'flex', alignItems: 'center', gap: '24px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                        <div style={{ marginTop: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', color: 'var(--text-muted)', fontSize: '0.9rem', flexWrap: 'wrap' }}>
                             <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                 <Shield size={16} /> MIT License
                             </span>
@@ -150,8 +150,10 @@ export default function Home() {
                 @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
                 @media (max-width: 900px) {
                     .hero-content { text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
-                    .hero-content h1 { font-size: 2.5rem; }
-                    .hero-visual { transform: scale(0.9); }
+                    .hero-content div[style*="justify-content"] { justify-content: center !important; }
+                    .hero-visual { transform: scale(0.95); margin-top: 20px; }
+                    .btn { width: 100%; max-width: 320px; }
+                    div[style*="flex-wrap: wrap"] { justify-content: center; }
                     .philosophy-text { order: 1; text-align: center; }
                     .philosophy-text ul { align-items: center; }
                     .philosophy-visual { order: 2; margin-top: 40px; }
@@ -160,6 +162,9 @@ export default function Home() {
                     .phone-mockup { transform: rotate(-5deg); }
                     .philosophy-text { order: 2; }
                     .philosophy-visual { order: 1; }
+                    div[style*="display: flex; gap: 16px"] { justify-content: flex-start !important; }
+                    .hero-content { text-align: left; align-items: flex-start; }
+                    .hero-content > div[style*="justify-content: center"] { justify-content: flex-start !important; }
                 }
             `}</style>
         </>

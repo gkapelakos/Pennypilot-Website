@@ -87,35 +87,35 @@ function ReleaseCard({ release, latest }) {
                 <div style={{
                     position: 'absolute', top: '0', right: '0',
                     background: 'var(--primary)', color: 'white',
-                    padding: '6px 16px', fontSize: '0.8rem', fontWeight: 600,
-                    borderBottomLeftRadius: '16px'
+                    padding: '6px 16px', fontSize: '0.75rem', fontWeight: 600,
+                    borderBottomLeftRadius: '16px',
+                    zIndex: 1
                 }}>
-                    LATEST STABLE
+                    LATEST
                 </div>
             )}
 
-            <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+            <div className="release-card-content" style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
                 <div style={{
                     width: '50px', height: '50px', borderRadius: '12px',
                     background: 'rgba(59, 130, 246, 0.1)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: 'var(--primary)'
+                    color: 'var(--primary)',
+                    flexShrink: 0
                 }}>
                     <Package size={24} />
                 </div>
 
-                <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '10px', marginBottom: '12px' }}>
-                        <div>
-                            <h3 style={{ fontSize: '1.4rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                {release.name || release.tag_name}
-                                <span style={{ fontSize: '0.85rem', padding: '2px 8px', borderRadius: '20px', background: 'var(--surface-hover)', color: 'var(--text-secondary)', fontWeight: 400 }}>
-                                    {release.tag_name}
-                                </span>
-                            </h3>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginTop: '8px', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Calendar size={14} /> {date}</span>
-                            </div>
+                <div style={{ flex: 1, width: '100%' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '12px' }}>
+                        <h3 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '10px', lineHeight: 1.3 }}>
+                            {release.name || release.tag_name}
+                            <span style={{ fontSize: '0.8rem', padding: '2px 8px', borderRadius: '20px', background: 'var(--surface-hover)', color: 'var(--text-secondary)', fontWeight: 400, whiteSpace: 'nowrap' }}>
+                                {release.tag_name}
+                            </span>
+                        </h3>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Calendar size={14} /> {date}</span>
                         </div>
                     </div>
 
@@ -123,11 +123,11 @@ function ReleaseCard({ release, latest }) {
                         {release.body ? release.body.split('\r\n')[0] : 'No description provided.'}
                     </div>
 
-                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                    <div className="actions-grid" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                         {apkAssets.length > 0 ? apkAssets.map(asset => (
                             <a key={asset.id} href={asset.browser_download_url}
                                 className="btn btn-primary"
-                                style={{ padding: '10px 20px', fontSize: '0.95rem' }}>
+                                style={{ padding: '12px 24px', fontSize: '0.95rem', flex: 1, minWidth: '200px', justifyContent: 'center' }}>
                                 <Download size={18} />
                                 <span>Download APK</span>
                                 <span style={{ opacity: 0.7, fontSize: '0.85rem', marginLeft: '4px' }}>
@@ -135,17 +135,24 @@ function ReleaseCard({ release, latest }) {
                                 </span>
                             </a>
                         )) : (
-                            <a href={release.html_url} target="_blank" rel="noreferrer" className="btn btn-secondary">
+                            <a href={release.html_url} target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ flex: 1, justifyContent: 'center' }}>
                                 View Release on GitHub <ExternalLink size={18} />
                             </a>
                         )}
-                        {/* Always show Github link for details */}
-                        <a href={release.html_url} target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ padding: '10px 20px' }}>
+                        <a href={release.html_url} target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ padding: '12px 24px', flex: '0 0 auto' }}>
                             Notes
                         </a>
                     </div>
                 </div>
             </div>
+
+            <style>{`
+                @media (max-width: 600px) {
+                    .release-card-content { flex-direction: column; }
+                    .actions-grid { flex-direction: column; }
+                    .btn { width: 100%; min-width: 0 !important; }
+                }
+            `}</style>
 
             <style>{`
                 .animate-pulse {
