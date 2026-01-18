@@ -1,59 +1,61 @@
 # PennyPilot Website
 
-The official landing page for PennyPilot, a privacy-centric and local-first personal finance application.
+This repository contains the source code for the official PennyPilot landing page and download portal. The website is engineered to provide a high-performance, accessible, and privacy-centric interface for the PennyPilot ecosystem.
 
-This repository contains the source code for the PennyPilot marketing website and download portal. Built with React and Vite, the site is engineered for performance and accessibility, mirroring the core principles of the PennyPilot application: simplicity, efficiency, and absolute user privacy.
+## Overview
 
-## Technical Architecture
+The PennyPilot website serves as the primary distribution channel and informational hub for the application. Reflecting the core principles of the PennyPilot app, this platform is optimized for efficiency, performance, and complete user privacy.
 
-The application is built using a modern, lightweight frontend stack:
+## Technical Specifications
+
+The platform utilization a modern frontend architecture built for speed and stability:
 
 - **Framework**: React 18
-- **Build Tooling**: Vite
-- **Routing**: React Router 6
+- **Build Engine**: Vite
+- **Navigation**: React Router 6
 - **Iconography**: Lucide React
-- **Styling**: Vanilla CSS with custom property tokens, CSS Grid, and responsive fluid typography.
+- **Design System**: Vanilla CSS implementation utilizing CSS Variable tokens, Grid layouts, and fluid typography.
 
-## Core Features
+## Key Features
 
-- **Privacy Autonomy**: The website contains zero tracking scripts, third-party cookies, or analytical engines.
-- **Dynamic Release Integration**: Automated integration with the GitHub Releases API to provide real-time access to the latest APK distributions.
-- **Mobile-Responsive Design**: A robust user interface optimized for mobile stability using dynamic viewport units and high-precision touch targets.
-- **Modern Aesthetic**: A premium interface utilizing glassmorphism effects and hardware-accelerated animations.
+- **Privacy-Centric**: Zero tracking scripts, third-party cookies, or analytics engines are utilized.
+- **Automated Distribution**: Direct integration with the GitHub Releases API for real-time access to the latest application binaries (APK).
+- **Responsive Architecture**: Fully optimized for mobile and desktop environments using modern CSS layout techniques.
+- **Premium Interface**: A sophisticated design utilizing hardware-accelerated animations and modern glassmorphism effects.
 
-## Directory Structure
+## Project Structure
 
-- `src/components/`: Modular UI components including navigation and structural layouts.
-- `src/pages/`: Page-level components defining the site's primary views.
-- `src/index.css`: Centralized design system and global style definitions.
+- `src/components/`: Modular UI components and structural layouts.
+- `src/pages/`: Primary page-level views and routing logic.
+- `src/index.css`: Design system tokens and global style definitions.
 - `public/`: Static assets and media resources.
 
-## Local Development
+## Development Environment
 
 ### Prerequisites
 
-- Node.js (Latest Long Term Support version)
-- npm (distributed with Node.js)
+- Node.js (Latest LTS version)
+- npm (Node Package Manager)
 
-### Installation and Execution
+### Installation
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/gkapelakos/Pennypilot-Website.git
    ```
 
-2. Install the required dependencies:
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. Initiate the development server:
+3. Start the development server:
    ```bash
    npm run dev
    ```
-   The application will be accessible at `http://localhost:5173`.
+   The local environment will be available at `http://localhost:5173`.
 
-## Deployment and Build Process
+## Build and Deployment
 
 To generate a production-optimized distribution:
 
@@ -61,8 +63,8 @@ To generate a production-optimized distribution:
 npm run build
 ```
 
-The resulting assets will be located in the `dist/` directory. This output is ready for deployment to any static hosting environment, such as Veriself, GitHub Pages, or dedicated web servers.
+The compiled assets will be generated in the `dist/` directory, ready for implementation on any static hosting provider.
 
 ## License
 
-This project is a component of the PennyPilot ecosystem and is distributed under the terms of the MIT License. Refer to the `LICENSE` file for full legal documentation.
+This project is a component of the PennyPilot ecosystem and is distributed under the MIT License. Refer to the `LICENSE` file for full documentation.
