@@ -13,6 +13,7 @@ export default function Footer() {
                         <p style={{ color: 'var(--text-secondary)' }}>Free. Open. Private.</p>
                     </div>
                     <div style={{ display: 'flex', gap: '24px' }}>
+                        <a href="/features.html" className="nav-link">Features</a>
                         <a href="/license.html" className="nav-link">License</a>
                         <a href="https://github.com/gkapelakos/PennyPilot/issues" target="_blank" rel="noreferrer" className="nav-link">Report Issue</a>
                         <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer" className="nav-link">GitHub</a>

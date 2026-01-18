@@ -88,7 +88,7 @@ export default function Home() {
                         <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)' }}>We stripped away the fluff to focus on what matters: precision, speed, and absolute privacy.</p>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '30px', marginBottom: '60px' }}>
                         <FeatureCard
                             icon={<Lock size={32} color="var(--primary-rgb)" />}
                             title="Local-First"
@@ -109,6 +109,12 @@ export default function Home() {
                             title="FOSS"
                             desc="Open source code (MIT). Inspect it, build it, fork it. Trust is earned through transparency."
                         />
+                    </div>
+
+                    <div style={{ textAlign: 'center' }}>
+                        <Link to="/features.html" className="btn btn-secondary" style={{ padding: '14px 40px' }}>
+                            Explore All Features <ArrowRight size={18} />
+                        </Link>
                     </div>
                 </div>
             </section>

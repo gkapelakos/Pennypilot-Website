@@ -33,7 +33,7 @@ export default function Header() {
 
     const navLinks = [
         { name: 'Home', path: '/', isHash: false },
-        { name: 'Features', path: '/#features', isHash: true },
+        { name: 'Features', path: '/features.html', isHash: false },
         { name: 'Downloads', path: '/downloads.html', isHash: false },
     ];
 
