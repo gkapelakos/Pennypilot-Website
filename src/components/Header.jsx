@@ -35,6 +35,7 @@ export default function Header() {
         { name: 'Home', path: '/', isHash: false },
         { name: 'Features', path: '/features.html', isHash: false },
         { name: 'Downloads', path: '/downloads.html', isHash: false },
+        { name: 'License', path: '/license.html', isHash: false },
     ];
 
     return (

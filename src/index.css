@@ -53,7 +53,7 @@ html {
 body {
   font-family: var(--font-body);
   background-color: var(--bg-core);
-  background-image: radial-gradient(circle at 50% 0%, #1a1a2e 0%, var(--bg-core) 60%);
+  background-image: radial-gradient(circle at 50% 0%, #11111e 0%, var(--bg-core) 70%);
   color: var(--text-main);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -76,7 +76,7 @@ h6 {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2.75rem;
 }
 
 h2 {
@@ -89,15 +89,15 @@ h3 {
 
 @media (min-width: 768px) {
   h1 {
-    font-size: 3.5rem;
+    font-size: 3.75rem;
   }
 
   h2 {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
 
   h3 {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 }
 
@@ -117,7 +117,7 @@ button {
 /* Layout Utilities */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -138,14 +138,15 @@ button {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 14px 28px;
+  padding: 14px 32px;
   border-radius: var(--radius-full);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   white-space: nowrap;
+  letter-spacing: 0.01em;
 }
 
 .btn-primary {
@@ -155,7 +156,8 @@ button {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 24px rgba(255, 255, 255, 0.25);
+  background: #ffffff;
 }
 
 .btn-secondary {
@@ -173,7 +175,7 @@ button {
 
 /* Gradient Text */
 .text-gradient {
-  background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+  background: linear-gradient(135deg, #fff 0%, #818cf8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -182,11 +184,11 @@ button {
 
 /* Glassmorphism */
 .glass-panel {
-  background: rgba(20, 20, 23, 0.4);
+  background: rgba(20, 20, 23, 0.6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 /* Mobile Nav Styles */
@@ -241,7 +243,7 @@ button {
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
 @keyframes float {
@@ -273,6 +275,7 @@ button {
   .grid-2 {
     grid-template-columns: 1fr 1fr;
     align-items: center;
+    gap: 80px;
   }
 }
 

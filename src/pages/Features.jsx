@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Shield, Mail, Bell, Wallet, BarChart3, Palette, Layout, CheckCircle2, Smartphone, Monitor } from 'lucide-react'
+import { Shield, Mail, Bell, Wallet, BarChart3, Palette, Layout, CheckCircle2, Smartphone, Monitor, Database, Code2, Cpu, Lock } from 'lucide-react'
 
 export default function Features() {
     useEffect(() => {
@@ -61,16 +61,16 @@ export default function Features() {
         <div className="section-padding">
             <div className="container">
                 <div style={{ textAlign: 'center', marginBottom: '80px', maxWidth: '800px', margin: '0 auto 80px' }}>
-                    <h1 style={{ marginBottom: '20px' }}>Built for <span className="text-gradient">Power & Privacy</span></h1>
+                    <h1 style={{ marginBottom: '24px' }}>Built for <span className="text-gradient">Power & Privacy</span></h1>
                     <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                         PennyPilot combines the convenience of modern automation with the security of a local-first architecture.
                         Explore the features that make us different.
                     </p>
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '80px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '100px', marginBottom: '120px' }}>
                     {featureGroups.map((group, idx) => (
-                        <div key={group.title} className="grid-2" style={{ alignItems: 'flex-start' }}>
+                        <div key={group.title} className="grid-2 feature-group" style={{ alignItems: 'flex-start' }}>
                             <div style={{ order: idx % 2 === 0 ? 1 : 2 }}>
                                 <div style={{
                                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
@@ -84,11 +84,11 @@ export default function Features() {
                                 <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', marginBottom: '32px', lineHeight: 1.7 }}>
                                     {group.desc}
                                 </p>
-                                <div style={{ display: 'grid', gap: '16px' }}>
+                                <div style={{ display: 'grid', gap: '20px' }}>
                                     {group.items.map(item => (
-                                        <div key={item} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                                            <CheckCircle2 size={20} color={group.color} style={{ marginTop: '2px', flexShrink: 0 }} />
-                                            <span style={{ color: 'var(--text-main)', fontSize: '1.05rem' }}>{item}</span>
+                                        <div key={item} style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
+                                            <CheckCircle2 size={22} color={group.color} style={{ marginTop: '2px', flexShrink: 0 }} />
+                                            <span style={{ color: 'var(--text-main)', fontSize: '1.05rem', lineHeight: 1.5 }}>{item}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -98,7 +98,7 @@ export default function Features() {
                                 display: 'flex', justifyContent: 'center'
                             }}>
                                 <div className="glass-panel" style={{
-                                    width: '100%', maxWidth: '500px', aspectRatio: '16/10',
+                                    width: '100%', maxWidth: '550px', aspectRatio: '16/10',
                                     borderRadius: 'var(--radius-lg)', padding: '20px',
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     position: 'relative', overflow: 'hidden'
@@ -109,17 +109,17 @@ export default function Features() {
                                         background: `radial-gradient(circle at center, ${group.color}08 0%, transparent 70%)`,
                                         zIndex: 0
                                     }}></div>
-                                    <div style={{ zIndex: 1, opacity: 0.8 }}>
-                                        {idx === 0 && <Shield size={120} strokeWidth={1} color={group.color} />}
+                                    <div style={{ zIndex: 1, opacity: 0.9 }}>
+                                        {idx === 0 && <Shield size={140} strokeWidth={0.8} color={group.color} />}
                                         {idx === 1 && <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                                            <Mail size={80} strokeWidth={1} color={group.color} />
+                                            <Mail size={90} strokeWidth={0.8} color={group.color} />
                                             <div style={{ width: '40px', height: '2px', background: 'var(--border-subtle)' }}></div>
-                                            <Layout size={80} strokeWidth={1} color={group.color} />
+                                            <Layout size={90} strokeWidth={0.8} color={group.color} />
                                         </div>}
-                                        {idx === 2 && <BarChart3 size={120} strokeWidth={1} color={group.color} />}
+                                        {idx === 2 && <BarChart3 size={140} strokeWidth={0.8} color={group.color} />}
                                         {idx === 3 && <div style={{ display: 'flex', gap: '20px' }}>
-                                            <Smartphone size={80} strokeWidth={1} color={group.color} />
-                                            <Monitor size={80} strokeWidth={1} color={group.color} />
+                                            <Smartphone size={90} strokeWidth={0.8} color={group.color} />
+                                            <Monitor size={90} strokeWidth={0.8} color={group.color} />
                                         </div>}
                                     </div>
                                 </div>
@@ -128,18 +128,46 @@ export default function Features() {
                     ))}
                 </div>
 
-                <div className="section-padding" style={{ textAlign: 'center', marginTop: '60px' }}>
-                    <div className="glass-panel" style={{ padding: '60px', borderRadius: 'var(--radius-lg)' }}>
-                        <h2 style={{ marginBottom: '24px' }}>Ready to take control?</h2>
-                        <p style={{ color: 'var(--text-secondary)', marginBottom: '40px', fontSize: '1.2rem' }}>
-                            Download PennyPilot today and start tracking without compromise.
+                <div className="section-padding" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+                        <h2 style={{ marginBottom: '16px' }}>Transparent <span className="text-gradient">Tech Stack</span></h2>
+                        <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)' }}>Built with modern, battle-tested open source technologies.</p>
+                    </div>
+
+                    <div className="grid-3">
+                        <TechCard icon={<Code2 />} title="Flutter & Dart" desc="High-performance, cross-platform framework for silky smooth 60fps rendering on Android, Linux, and Windows." />
+                        <TechCard icon={<Database />} title="Isar Database" desc="Ultra-fast, fully asynchronous NoSQL database designed specifically for Flutter mobile apps." />
+                        <TechCard icon={<Cpu />} title="Local AI & ML" desc="Powered by MediaPipe & Gemma (Experimental) for on-device parsing without cloud dependencies." />
+                        <TechCard icon={<Layout />} title="Riverpod" desc="Robust, compile-safe state management ensuring predictable app behavior and testability." />
+                        <TechCard icon={<Lock />} title="Local Auth" desc="Secured with device biometrics and industry-standard cryptography packages." />
+                        <TechCard icon={<Shield />} title="Google OAuth 2.0" desc="Secure, direct connection to your Gmail for read-only access. Tokens stay on your device." />
+                    </div>
+                </div>
+
+                <div className="section-padding" style={{ textAlign: 'center', marginTop: '40px' }}>
+                    <div className="glass-panel" style={{ padding: '80px 40px', borderRadius: 'var(--radius-lg)', background: 'linear-gradient(180deg, rgba(20,20,23,0.6) 0%, rgba(59,130,246,0.05) 100%)' }}>
+                        <h2 style={{ marginBottom: '24px', fontSize: '2.5rem' }}>Ready to take control?</h2>
+                        <p style={{ color: 'var(--text-secondary)', marginBottom: '40px', fontSize: '1.25rem', maxWidth: '600px', margin: '0 auto 40px' }}>
+                            Join thousands of users who are tracking their finances without compromising their privacy.
                         </p>
-                        <a href="/downloads.html" className="btn btn-primary" style={{ padding: '16px 40px', fontSize: '1.1rem' }}>
+                        <a href="/downloads.html" className="btn btn-primary" style={{ padding: '16px 48px', fontSize: '1.1rem' }}>
                             Download Latest APK
                         </a>
                     </div>
                 </div>
             </div>
+        </div>
+    )
+}
+
+function TechCard({ icon, title, desc }) {
+    return (
+        <div className="glass-panel" style={{ padding: '32px', borderRadius: 'var(--radius-md)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ color: 'var(--primary)', background: 'rgba(59,130,246,0.1)', width: 'fit-content', padding: '12px', borderRadius: '12px' }}>
+                {icon}
+            </div>
+            <h3 style={{ fontSize: '1.25rem' }}>{title}</h3>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>{desc}</p>
         </div>
     )
 }
