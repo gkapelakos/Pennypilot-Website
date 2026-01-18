@@ -31,15 +31,26 @@ export default function Header() {
         setIsMobileMenuOpen(false);
     }, [hash]);
 
-    // Lock body scroll when mobile menu is open
+    // Unified scroll lock for mobile
     useEffect(() => {
+        const body = document.body;
+        const html = document.documentElement;
         if (isMobileMenuOpen) {
-            document.body.style.overflow = 'hidden';
+            body.style.overflow = 'hidden';
+            body.style.height = '100vh';
+            body.style.touchAction = 'none';
+            html.style.overflow = 'hidden'; // Lock HTML as well
         } else {
-            document.body.style.overflow = '';
+            body.style.overflow = '';
+            body.style.height = '';
+            body.style.touchAction = '';
+            html.style.overflow = '';
         }
         return () => {
-            document.body.style.overflow = '';
+            body.style.overflow = '';
+            body.style.height = '';
+            body.style.touchAction = '';
+            html.style.overflow = '';
         };
     }, [isMobileMenuOpen]);
 
@@ -51,70 +62,80 @@ export default function Header() {
     ];
 
     return (
-        <header style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 100,
-            transition: 'all 0.3s ease',
-            height: 'var(--header-height)',
-            borderBottom: scrolled ? '1px solid var(--border-subtle)' : '1px solid transparent',
-            background: scrolled ? 'rgba(3, 3, 4, 0.8)' : 'transparent',
-            backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        }}>
-            <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', zIndex: 101 }}>
-                    <img src="/assets/pennypilot_logo.png" alt="PennyPilot" style={{ width: '32px', height: '32px' }} />
-                    <span style={{ fontWeight: 700, fontSize: '1.25rem', color: '#fff', letterSpacing: '-0.02em' }}>PennyPilot</span>
-                </NavLink>
+        <>
+            <header style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                zIndex: 100,
+                transition: 'all 0.3s ease',
+                height: 'var(--header-height)',
+                background: scrolled ? 'rgba(3, 3, 4, 1)' : 'transparent',
+                backdropFilter: scrolled ? 'blur(20px)' : 'none',
+            }}>
+                <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', zIndex: 1002 }}>
+                        <img src="/assets/pennypilot_logo.png" alt="PennyPilot" style={{ width: '32px', height: '32px' }} />
+                        <span style={{ fontWeight: 700, fontSize: '1.25rem', color: '#fff', letterSpacing: '-0.02em' }}>PennyPilot</span>
+                    </NavLink>
 
-                {/* Desktop Nav */}
-                <nav className="desktop-nav" style={{ display: 'none', alignItems: 'center', gap: '32px' }}>
-                    {navLinks.map((link) => (
-                        link.isHash ? (
-                            <a key={link.name} href={link.path} className="nav-link" style={{
-                                color: 'var(--text-secondary)',
-                                fontWeight: 500,
-                                fontSize: '0.95rem',
-                                transition: 'color 0.2s'
-                            }}>{link.name}</a>
-                        ) : (
-                            <NavLink key={link.name} to={link.path} end
-                                className={({ isActive }) => isActive ? "active-link" : ""}
-                                style={({ isActive }) => ({
-                                    color: isActive ? 'var(--text-main)' : 'var(--text-secondary)',
+                    {/* Desktop Nav */}
+                    <nav className="desktop-nav" style={{ display: 'none', alignItems: 'center', gap: '32px' }}>
+                        {navLinks.map((link) => (
+                            link.isHash ? (
+                                <a key={link.name} href={link.path} className="nav-link" style={{
+                                    color: 'var(--text-secondary)',
                                     fontWeight: 500,
                                     fontSize: '0.95rem',
                                     transition: 'color 0.2s'
-                                })}
-                            >
-                                {link.name}
-                            </NavLink>
-                        )
-                    ))}
+                                }}>{link.name}</a>
+                            ) : (
+                                <NavLink key={link.name} to={link.path} end
+                                    className={({ isActive }) => isActive ? "active-link" : ""}
+                                    style={({ isActive }) => ({
+                                        color: isActive ? 'var(--text-main)' : 'var(--text-secondary)',
+                                        fontWeight: 500,
+                                        fontSize: '0.95rem',
+                                        transition: 'color 0.2s'
+                                    })}
+                                >
+                                    {link.name}
+                                </NavLink>
+                            )
+                        ))}
 
-                    <div style={{ width: '1px', height: '24px', background: 'var(--border-subtle)' }}></div>
+                        <div style={{ width: '1px', height: '24px', background: 'var(--border-subtle)' }}></div>
 
-                    <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer"
-                        style={{ display: 'flex', alignItems: 'center', color: 'var(--text-secondary)', transition: 'color 0.2s' }}
-                        className="github-link">
-                        <Github size={20} />
-                    </a>
-                </nav>
+                        <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer"
+                            style={{ display: 'flex', alignItems: 'center', color: 'var(--text-secondary)', transition: 'color 0.2s' }}
+                            className="github-link">
+                            <Github size={20} />
+                        </a>
+                    </nav>
 
-                {/* Mobile Menu Toggle */}
-                <button
-                    className="mobile-toggle"
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    style={{ zIndex: 101, display: 'flex', color: 'var(--text-main)' }}
-                    aria-label="Toggle menu"
-                >
-                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-            </div>
+                    {/* Mobile Menu Toggle */}
+                    <button
+                        className="mobile-toggle"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        style={{ zIndex: 1100, display: 'flex', color: 'var(--text-main)' }}
+                        aria-label="Toggle menu"
+                    >
+                        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+                </div>
 
-            {/* Mobile Nav Overlay & Menu */}
+                <style>{`
+                    @media (min-width: 768px) {
+                        .desktop-nav { display: flex !important; }
+                        .mobile-toggle { display: none !important; }
+                    }
+                    .active-link { color: var(--text-main) !important; }
+                    .github-link:hover { color: var(--text-main) !important; }
+                `}</style>
+            </header>
+
+            {/* Mobile Nav Overlay & Menu - Moved OUTSIDE of header to avoid stacking context issues */}
             <div className={`mobile-nav-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)} />
 
             <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
@@ -145,15 +166,6 @@ export default function Header() {
                     </a>
                 </nav>
             </div>
-
-            <style>{`
-                @media (min-width: 768px) {
-                    .desktop-nav { display: flex !important; }
-                    .mobile-toggle { display: none !important; }
-                }
-                .active-link { color: var(--text-main) !important; }
-                .github-link:hover { color: var(--text-main) !important; }
-            `}</style>
-        </header>
+        </>
     )
 }

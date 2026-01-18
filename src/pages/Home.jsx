@@ -1,4 +1,4 @@
-import { ArrowDown, Shield, BarChart3, Wrench, X, Check, ArrowRight, Smartphone, Zap, Github } from 'lucide-react'
+import { ArrowDown, Shield, BarChart3, Wrench, X, Check, ArrowRight, Smartphone, Zap, Github, Lock } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useIsMobile } from '../hooks/useIsMobile'
 

@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Download, ExternalLink, Package, Calendar, Tag } from 'lucide-react'
 
+import { useIsMobile } from '../hooks/useIsMobile'
+
 export default function Downloads() {
+    const isMobile = useIsMobile();
     const [releases, setReleases] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -23,6 +26,104 @@ export default function Downloads() {
         fetchReleases()
     }, [])
 
+    return isMobile ?
+        <MobileDownloads releases={releases} loading={loading} error={error} /> :
+        <DesktopDownloads releases={releases} loading={loading} error={error} />;
+}
+
+function MobileDownloads({ releases, loading, error }) {
+    return (
+        <div style={{ padding: '80px 20px 40px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+                <h1 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>Get <span className="text-gradient">PennyPilot</span></h1>
+                <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)' }}>
+                    Secure, signed releases from GitHub.
+                </p>
+            </div>
+
+            {loading && (
+                <div className="glass-panel" style={{ padding: '40px', textAlign: 'center', borderRadius: '16px' }}>
+                    <div className="animate-pulse" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+                        <div style={{ width: '40px', height: '40px', background: 'var(--surface-hover)', borderRadius: '50%' }}></div>
+                        <div style={{ width: '200px', height: '24px', background: 'var(--surface-hover)', borderRadius: '4px' }}></div>
+                    </div>
+                </div>
+            )}
+
+            {error && (
+                <div className="glass-panel" style={{ padding: '30px', textAlign: 'center', borderRadius: '16px', borderColor: 'var(--accent-error)' }}>
+                    <p style={{ color: 'var(--accent-error)', marginBottom: '16px' }}>Error fetching releases.</p>
+                    <a href="https://github.com/gkapelakos/PennyPilot/releases" className="btn btn-secondary" style={{ width: '100%' }}>
+                        Go to GitHub
+                    </a>
+                </div>
+            )}
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                {releases.map((release, index) => (
+                    <MobileReleaseCard key={release.id} release={release} latest={index === 0} />
+                ))}
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '40px' }}>
+                <a href="https://github.com/gkapelakos/PennyPilot/releases" target="_blank" rel="noreferrer"
+                    className="btn btn-secondary" style={{ width: '100%' }}>
+                    All Releases <ExternalLink size={18} />
+                </a>
+            </div>
+        </div>
+    )
+}
+
+function MobileReleaseCard({ release, latest }) {
+    const date = new Date(release.published_at).toLocaleDateString(undefined, {
+        year: 'numeric', month: 'short', day: 'numeric'
+    })
+    const apkAssets = release.assets.filter(a => a.name.endsWith('.apk'))
+
+    return (
+        <div className="glass-panel" style={{
+            padding: '24px',
+            borderRadius: '16px',
+            border: latest ? '1px solid rgba(59, 130, 246, 0.4)' : '1px solid var(--border-subtle)',
+            background: latest ? 'rgba(59, 130, 246, 0.05)' : 'rgba(20, 20, 23, 0.6)'
+        }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '16px' }}>
+                <div>
+                    <h3 style={{ fontSize: '1.25rem', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        {release.tag_name}
+                    </h3>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                        <Calendar size={14} /> {date}
+                    </div>
+                </div>
+                {latest && (
+                    <span style={{ fontSize: '0.75rem', padding: '4px 10px', borderRadius: '10px', background: 'var(--primary)', color: 'white', fontWeight: 600 }}>
+                        LATEST
+                    </span>
+                )}
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {apkAssets.length > 0 ? apkAssets.map(asset => (
+                    <a key={asset.id} href={asset.browser_download_url}
+                        className="btn btn-primary"
+                        style={{ width: '100%', padding: '14px', justifyContent: 'center' }}>
+                        <Download size={18} /> Download APK
+                    </a>
+                )) : (
+                    <a href={release.html_url} className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                        View on GitHub
+                    </a>
+                )}
+                <a href={release.html_url} target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                    Release Notes
+                </a>
+            </div>
+        </div>
+    )
+}
+
+function DesktopDownloads({ releases, loading, error }) {
     return (
         <div className="section-padding">
             <div className="container" style={{ maxWidth: '800px' }}>
@@ -65,6 +166,15 @@ export default function Downloads() {
                     </a>
                 </div>
             </div>
+            <style>{`
+                .animate-pulse {
+                    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+                }
+                @keyframes pulse {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: .5; }
+                }
+            `}</style>
         </div>
     )
 }

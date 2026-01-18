@@ -141,7 +141,7 @@ button {
 }
 
 .section-padding {
-  padding: 48px 0;
+  padding: 40px 0;
 }
 
 @media (min-width: 768px) {
@@ -227,12 +227,14 @@ button {
 .mobile-nav-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 99;
+  background: rgba(0, 0, 0, 0.85);
+  /* Darker overlay */
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  /* Higher than page content */
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease;
 }
 
 .mobile-nav-overlay.open {
@@ -245,15 +247,17 @@ button {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 85vw;
+  width: 100%;
+  /* Full screen for total focus */
   max-width: 320px;
-  background: rgba(15, 15, 17, 0.95);
-  backdrop-filter: blur(20px);
-  border-left: 1px solid var(--border-subtle);
+  background: #030304;
+  /* Solid for robustness */
+  opacity: 1;
+  z-index: 1001;
+  /* Highest */
   padding: 100px 30px 40px;
   transform: translateX(100%);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 100;
   display: flex;
   flex-direction: column;
   gap: 20px;

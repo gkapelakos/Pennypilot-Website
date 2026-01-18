@@ -1,11 +1,96 @@
 import { useEffect } from 'react'
 import { Shield, Mail, Bell, Wallet, BarChart3, Palette, Layout, CheckCircle2, Smartphone, Monitor, Database, Code2, Cpu, Lock } from 'lucide-react'
 
+import { useIsMobile } from '../hooks/useIsMobile'
+
 export default function Features() {
+    const isMobile = useIsMobile();
+
     useEffect(() => {
         document.title = 'Features | PennyPilot'
     }, [])
 
+    return isMobile ? <MobileFeatures /> : <DesktopFeatures />;
+}
+
+function MobileFeatures() {
+    const featureGroups = [
+        {
+            title: "Privacy & Security",
+            icon: <Shield size={24} />,
+            color: "#22c55e",
+            desc: "Your data belongs to you.",
+            items: ["100% Local Data", "Zero Data Selling", "Encrypted Backups", "Open Source"]
+        },
+        {
+            title: "Smart Automation",
+            icon: <Mail size={24} />,
+            color: "#3b82f6",
+            desc: "Local intelligence finds your receipts.",
+            items: ["Smart Inbox Scan", "Merchant Recognition", "Subscription Detection", "Local AI Parsing"]
+        },
+        {
+            title: "Financial Intelligence",
+            icon: <Wallet size={24} />,
+            color: "#8b5cf6",
+            desc: "Spend more mindfully.",
+            items: ["Safe-to-Spend", "Renewal Alerts", "Price Hike Detection", "Granular Analytics"]
+        },
+        {
+            title: "Modern Experience",
+            icon: <Palette size={24} />,
+            color: "#f43f5e",
+            desc: "World-class UI for power users.",
+            items: ["Material You", "Multi-Platform", "Lottie Animations", "Multi-Currency"]
+        }
+    ]
+
+    return (
+        <div style={{ padding: '80px 20px 40px' }}>
+            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                <h1 style={{ fontSize: '2.5rem', marginBottom: '16px', lineHeight: 1.1 }}>
+                    Power & <span className="text-gradient">Privacy.</span>
+                </h1>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
+                    Local-first automation for your finances.
+                </p>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {featureGroups.map(group => (
+                    <div key={group.title} className="glass-panel" style={{ padding: '24px', borderRadius: '16px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                            <div style={{ padding: '8px', borderRadius: '10px', background: `${group.color}15`, color: group.color }}>
+                                {group.icon}
+                            </div>
+                            <h2 style={{ fontSize: '1.25rem', margin: 0 }}>{group.title}</h2>
+                        </div>
+                        <ul style={{ display: 'grid', gap: '12px', listStyle: 'none' }}>
+                            {group.items.map(item => (
+                                <li key={item} style={{ display: 'flex', gap: '10px', alignItems: 'center', fontSize: '1rem' }}>
+                                    <CheckCircle2 size={18} color={group.color} />
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+
+            <div className="glass-panel" style={{ padding: '30px 20px', borderRadius: '16px', marginTop: '40px', textAlign: 'center' }}>
+                <h2 style={{ fontSize: '1.5rem', marginBottom: '16px' }}>Ready?</h2>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '24px' }}>
+                    Join thousands of sovereign users.
+                </p>
+                <a href="/downloads.html" className="btn btn-primary" style={{ width: '100%', padding: '16px' }}>
+                    Download APK
+                </a>
+            </div>
+        </div>
+    )
+}
+
+function DesktopFeatures() {
     const featureGroups = [
         {
             title: "Privacy & Security",
