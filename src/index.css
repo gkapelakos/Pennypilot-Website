@@ -36,18 +36,33 @@
   --radius-lg: 32px;
   --radius-full: 9999px;
 
-  --header-height: 80px;
+  --header-height: 64px;
+  --section-padding: 60px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: 80px;
+    --section-padding: 120px;
+  }
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
   scroll-behavior: smooth;
-  font-size: 16px;
+  font-size: 15px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
 }
 
 body {
@@ -123,13 +138,7 @@ button {
 }
 
 .section-padding {
-  padding: 80px 0;
-}
-
-@media (min-width: 768px) {
-  .section-padding {
-    padding: 120px 0;
-  }
+  padding: var(--section-padding) 0;
 }
 
 /* Components */

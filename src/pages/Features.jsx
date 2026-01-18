@@ -71,7 +71,7 @@ export default function Features() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '100px', marginBottom: '120px' }}>
                     {featureGroups.map((group, idx) => (
                         <div key={group.title} className="grid-2 feature-group" style={{ alignItems: 'flex-start' }}>
-                            <div style={{ order: idx % 2 === 0 ? 1 : 2 }}>
+                            <div className="feature-text">
                                 <div style={{
                                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
                                     width: '64px', height: '64px', borderRadius: '16px',
@@ -93,8 +93,7 @@ export default function Features() {
                                     ))}
                                 </div>
                             </div>
-                            <div style={{
-                                order: idx % 2 === 0 ? 2 : 1,
+                            <div className="feature-visual" style={{
                                 display: 'flex', justifyContent: 'center'
                             }}>
                                 <div className="glass-panel" style={{
@@ -128,6 +127,7 @@ export default function Features() {
                     ))}
                 </div>
 
+                {/* ... Tech Stack and the rest ... */}
                 <div className="section-padding" style={{ borderTop: '1px solid var(--border-subtle)' }}>
                     <div style={{ textAlign: 'center', marginBottom: '60px' }}>
                         <h2 style={{ marginBottom: '16px' }}>Transparent <span className="text-gradient">Tech Stack</span></h2>
@@ -155,6 +155,17 @@ export default function Features() {
                         </a>
                     </div>
                 </div>
+                <style>{`
+                    @media (min-width: 901px) {
+                        .feature-group:nth-child(even) .feature-text { order: 2; }
+                        .feature-group:nth-child(even) .feature-visual { order: 1; }
+                    }
+                    @media (max-width: 900px) {
+                        .feature-group { text-align: center; }
+                        .feature-group .feature-text { display: flex; flex-direction: column; align-items: center; }
+                        .feature-group ul { align-items: center; }
+                    }
+                `}</style>
             </div>
         </div>
     )

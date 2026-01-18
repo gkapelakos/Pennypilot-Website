@@ -16,8 +16,8 @@ export default function Home() {
             }}></div>
 
             <section className="hero-section" style={{
-                padding: '160px 0 100px',
-                minHeight: '90vh',
+                padding: 'calc(var(--header-height) + 40px) 0 60px',
+                minHeight: '85vh',
                 display: 'flex',
                 alignItems: 'center',
                 position: 'relative',
@@ -25,6 +25,7 @@ export default function Home() {
             }}>
                 <div className="container grid-2">
                     <div className="hero-content animate-fade-in">
+                        {/* ... existing badge ... */}
                         <div style={{
                             display: 'inline-flex', alignItems: 'center', gap: '10px',
                             padding: '8px 16px', background: 'rgba(59, 130, 246, 0.1)',
@@ -41,10 +42,10 @@ export default function Home() {
                         <h1 style={{ marginBottom: '24px', letterSpacing: '-0.03em' }}>
                             Your personal financial <span className="text-gradient">navigator.</span>
                         </h1>
-                        <p style={{ fontSize: '1.35rem', color: 'var(--text-secondary)', marginBottom: '40px', maxWidth: '580px', lineHeight: 1.5 }}>
+                        <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', marginBottom: '40px', maxWidth: '580px', lineHeight: 1.5 }}>
                             The only finance tracker that runs <strong style={{ color: 'var(--text-main)' }}>100% on your device</strong>. No servers. No selling your data. Just intelligent, local automation.
                         </p>
-
+                        {/* ... buttons ... */}
                         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
                             <Link to="/downloads.html" className="btn btn-primary">
                                 <ArrowDown size={20} />
@@ -54,7 +55,7 @@ export default function Home() {
                                 See How It Works
                             </Link>
                         </div>
-
+                        {/* ... footer badges ... */}
                         <div style={{ marginTop: '40px', display: 'flex', alignItems: 'center', gap: '24px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
                             <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                 <Shield size={16} /> MIT License
@@ -66,12 +67,11 @@ export default function Home() {
                     </div>
 
                     <div className="hero-visual animate-float" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                        {/* Blob behind phone */}
                         <div style={{
                             position: 'absolute',
                             top: '50%', left: '50%',
                             transform: 'translate(-50%, -50%)',
-                            width: '400px', height: '400px',
+                            width: 'min(400px, 90vw)', height: 'min(400px, 90vw)',
                             background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)',
                             filter: 'blur(60px)',
                             zIndex: -1
@@ -79,9 +79,8 @@ export default function Home() {
 
                         <div className="phone-mockup" style={{
                             filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.5))',
-                            maxWidth: '340px',
-                            width: '100%',
-                            transform: 'rotate(-5deg)'
+                            maxWidth: '320px',
+                            width: '100%'
                         }}>
                             <img src="/assets/iPhone 15 Mockup Poster.png" alt="PennyPilot App Interface" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '48px', border: '8px solid #1a1a1a' }} />
                         </div>
@@ -97,30 +96,13 @@ export default function Home() {
                             PennyPilot brings powerful AI features directly to your pocket, powered by on-device processing.
                         </p>
                     </div>
-
+                    {/* ... grid ... */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginBottom: '60px' }}>
-                        <FeatureCard
-                            icon={<Zap size={32} color="var(--primary-rgb)" />}
-                            title="Smart Inbox Scan"
-                            desc="Connect your Gmail once. We scan for receipts from Uber, Amazon, and Spotify locally on your phone."
-                        />
-                        <FeatureCard
-                            icon={<BarChart3 size={32} color="var(--primary-rgb)" />}
-                            title="Safe-to-Spend"
-                            desc="Know exactly how much you can spend today based on your budget and upcoming bills."
-                        />
-                        <FeatureCard
-                            icon={<Shield size={32} color="var(--primary-rgb)" />}
-                            title="Local-First"
-                            desc="Your database (Isar) is encrypted and stored only on your device. We physically cannot see your data."
-                        />
-                        <FeatureCard
-                            icon={<Wrench size={32} color="var(--primary-rgb)" />}
-                            title="Material You"
-                            desc="A stunning, adaptive interface built with Flutter 3 that respects your system theme preferences."
-                        />
+                        <FeatureCard icon={<Zap size={32} color="var(--primary-rgb)" />} title="Smart Inbox Scan" desc="Connect your Gmail once. We scan for receipts from Uber, Amazon, and Spotify locally on your phone." />
+                        <FeatureCard icon={<BarChart3 size={32} color="var(--primary-rgb)" />} title="Safe-to-Spend" desc="Know exactly how much you can spend today based on your budget and upcoming bills." />
+                        <FeatureCard icon={<Shield size={32} color="var(--primary-rgb)" />} title="Local-First" desc="Your database (Isar) is encrypted and stored only on your device. We physically cannot see your data." />
+                        <FeatureCard icon={<Wrench size={32} color="var(--primary-rgb)" />} title="Material You" desc="A stunning, adaptive interface built with Flutter 3 that respects your system theme preferences." />
                     </div>
-
                     <div style={{ textAlign: 'center' }}>
                         <Link to="/features.html" className="btn btn-secondary" style={{ padding: '16px 48px' }}>
                             Explore All Features <ArrowRight size={18} />
@@ -131,7 +113,7 @@ export default function Home() {
 
             <section id="philosophy" className="section-padding" style={{ background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.02))' }}>
                 <div className="container grid-2">
-                    <div style={{ order: 2 }}>
+                    <div className="philosophy-text">
                         <h2 style={{ marginBottom: '24px' }}>The "No" Philosophy</h2>
                         <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', marginBottom: '40px', lineHeight: 1.7 }}>
                             Modern apps treat you like a product. They want your data, your attention, and your monthly subscription. <br /><br />
@@ -146,9 +128,9 @@ export default function Home() {
                         </ul>
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'center', order: 1 }}>
+                    <div className="philosophy-visual" style={{ display: 'flex', justifyContent: 'center' }}>
                         <div style={{
-                            width: '100%', maxWidth: '400px', aspectRatio: '1/1',
+                            width: '100%', maxWidth: '360px', aspectRatio: '1/1',
                             background: 'linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.02))',
                             borderRadius: '50%',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -156,7 +138,7 @@ export default function Home() {
                             boxShadow: '0 0 80px rgba(59,130,246,0.08)',
                             position: 'relative'
                         }}>
-                            <Shield size={160} strokeWidth={0.8} color="rgba(59,130,246,0.8)" />
+                            <Shield size={140} strokeWidth={0.8} color="rgba(59,130,246,0.8)" />
                             <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1px dashed rgba(59,130,246,0.2)', animation: 'spin 30s linear infinite' }}></div>
                         </div>
                     </div>
@@ -167,9 +149,17 @@ export default function Home() {
                 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
                 @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
                 @media (max-width: 900px) {
-                    .hero-content { text-align: center; display: flex; flex-direction: column; align-items: center; }
+                    .hero-content { text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
                     .hero-content h1 { font-size: 2.5rem; }
-                    .hero-visual { margin-top: 60px; transform: scale(0.9); }
+                    .hero-visual { transform: scale(0.9); }
+                    .philosophy-text { order: 1; text-align: center; }
+                    .philosophy-text ul { align-items: center; }
+                    .philosophy-visual { order: 2; margin-top: 40px; }
+                }
+                @media (min-width: 901px) {
+                    .phone-mockup { transform: rotate(-5deg); }
+                    .philosophy-text { order: 2; }
+                    .philosophy-visual { order: 1; }
                 }
             `}</style>
         </>
