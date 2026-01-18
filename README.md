@@ -1,43 +1,68 @@
 # PennyPilot Website
 
-The official landing page for **PennyPilot**, a privacy-first, local-first personal finance application.
+The official landing page for PennyPilot, a privacy-centric and local-first personal finance application.
 
-This website is designed to be static, lightweight, and respectful of the user, mirroring the philosophy of the application itself. It contains no tracking scripts, analytics, or external dependencies other than Google Fonts.
+This repository contains the source code for the PennyPilot marketing website and download portal. Built with React and Vite, the site is engineered for performance and accessibility, mirroring the core principles of the PennyPilot application: simplicity, efficiency, and absolute user privacy.
 
-## Overview
+## Technical Architecture
 
-- **Static HTML/CSS/JS**: No build steps or frameworks required.
-- **Privacy Focused**: No cookies, no analytics.
-- **Auto-Updating**: Fetches the latest APK releases directly from the GitHub API.
+The application is built using a modern, lightweight frontend stack:
 
-## Structure
+- **Framework**: React 18
+- **Build Tooling**: Vite
+- **Routing**: React Router 6
+- **Iconography**: Lucide React
+- **Styling**: Vanilla CSS with custom property tokens, CSS Grid, and responsive fluid typography.
 
-- `index.html`: Main entry point containing semantic markup.
-- `style.css`: Custom vanilla CSS variables, grid layouts, and responsive design.
-- `script.js`: Handles fetching and displaying the latest GitHub Releases.
-- `assets/`: Contains images and static resources.
+## Core Features
 
-## Running Locally
+- **Privacy Autonomy**: The website contains zero tracking scripts, third-party cookies, or analytical engines.
+- **Dynamic Release Integration**: Automated integration with the GitHub Releases API to provide real-time access to the latest APK distributions.
+- **Mobile-Responsive Design**: A robust user interface optimized for mobile stability using dynamic viewport units and high-precision touch targets.
+- **Modern Aesthetic**: A premium interface utilizing glassmorphism effects and hardware-accelerated animations.
 
-Since this is a static site, you can open `index.html` directly in your browser. However, for the best experience (and to avoid CORS issues with some local setups), it is recommended to serve it via a local server.
+## Directory Structure
 
-### using Python
+- `src/components/`: Modular UI components including navigation and structural layouts.
+- `src/pages/`: Page-level components defining the site's primary views.
+- `src/index.css`: Centralized design system and global style definitions.
+- `public/`: Static assets and media resources.
+
+## Local Development
+
+### Prerequisites
+
+- Node.js (Latest Long Term Support version)
+- npm (distributed with Node.js)
+
+### Installation and Execution
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/gkapelakos/Pennypilot-Website.git
+   ```
+
+2. Install the required dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Initiate the development server:
+   ```bash
+   npm run dev
+   ```
+   The application will be accessible at `http://localhost:5173`.
+
+## Deployment and Build Process
+
+To generate a production-optimized distribution:
+
 ```bash
-python3 -m http.server 8000
+npm run build
 ```
-Then visit `http://localhost:8000`.
 
-### using VS Code
-Install the "Live Server" extension and click "Go Live".
-
-## Deployment
-
-The site is ready for deployment on any static hosting provider (e.g., Veriself, GitHub Pages, Netlify, Vercel).
-
-1. Upload the files to your web root.
-2. Ensure the `assets` folder is included.
-3. No build script is needed.
+The resulting assets will be located in the `dist/` directory. This output is ready for deployment to any static hosting environment, such as Veriself, GitHub Pages, or dedicated web servers.
 
 ## License
 
-This project is part of the PennyPilot ecosystem and is open source.
+This project is a component of the PennyPilot ecosystem and is distributed under the terms of the MIT License. Refer to the `LICENSE` file for full legal documentation.
