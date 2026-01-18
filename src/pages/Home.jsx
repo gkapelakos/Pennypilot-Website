@@ -1,7 +1,93 @@
-import { ArrowDown, Shield, BarChart3, Lock, Wrench, X, Check, ArrowRight, Smartphone, Zap } from 'lucide-react'
+import { ArrowDown, Shield, BarChart3, Wrench, X, Check, ArrowRight, Smartphone, Zap, Github } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 export default function Home() {
+    const isMobile = useIsMobile();
+
+    return isMobile ? <MobileHome /> : <DesktopHome />;
+}
+
+function MobileHome() {
+    return (
+        <div style={{ paddingBottom: '80px' }}>
+            {/* Simplified Background for Mobile Performance */}
+            <div style={{
+                position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+                background: 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.08), transparent 50%)',
+                zIndex: -1, pointerEvents: 'none'
+            }}></div>
+
+            {/* Mobile Hero */}
+            <section style={{
+                padding: 'calc(var(--header-height) + 20px) 20px 40px',
+                display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
+                minHeight: '80dvh', justifyContent: 'center'
+            }}>
+                <div style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '8px',
+                    padding: '6px 14px', background: 'rgba(59, 130, 246, 0.1)',
+                    borderRadius: '20px', color: '#60a5fa', fontSize: '0.8rem', fontWeight: 600, marginBottom: '24px',
+                    border: '1px solid rgba(59, 130, 246, 0.2)'
+                }}>
+                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#3b82f6' }}></span>
+                    v1.0 RC Available
+                </div>
+
+                <h1 style={{ fontSize: '2.5rem', lineHeight: 1.1, marginBottom: '16px', letterSpacing: '-0.03em' }}>
+                    <span className="text-gradient">Private Finance.</span><br />
+                    <span>Local First.</span>
+                </h1>
+
+                <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '32px', lineHeight: 1.5, maxWidth: '320px' }}>
+                    The only finance tracker that runs <strong>100% on your device</strong>. No servers. No tracking.
+                </p>
+
+                <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <Link to="/downloads.html" className="btn btn-primary" style={{ width: '100%', height: '56px', fontSize: '1.1rem' }}>
+                        <ArrowDown size={22} /> Download APK
+                    </Link>
+                    <Link to="/features.html" className="btn btn-secondary" style={{ width: '100%', height: '56px' }}>
+                        See Features
+                    </Link>
+                </div>
+
+                <div style={{ marginTop: '32px', display: 'flex', gap: '20px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Shield size={14} /> MIT License</span>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Github size={14} /> Open Source</span>
+                </div>
+            </section>
+
+            {/* Mobile Features List */}
+            <section style={{ padding: '20px 20px 40px' }}>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '24px', textAlign: 'center' }}>Why PennyPilot?</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <MobileFeatureCard icon={<Zap size={24} color="#60a5fa" />} title="Smart Scan" desc="Auto-scan receipts from inbox locally." />
+                    <MobileFeatureCard icon={<Lock size={24} color="#60a5fa" />} title="Local Data" desc="Encrypted Db. No cloud sync." />
+                    <MobileFeatureCard icon={<BarChart3 size={24} color="#60a5fa" />} title="Budgeting" desc="Safe-to-spend analytics." />
+                </div>
+            </section>
+        </div>
+    )
+}
+
+function MobileFeatureCard({ icon, title, desc }) {
+    return (
+        <div className="glass-panel" style={{
+            padding: '20px', borderRadius: '16px', display: 'flex', alignItems: 'center', gap: '16px'
+        }}>
+            <div style={{ padding: '10px', background: 'rgba(59,130,246,0.1)', borderRadius: '12px' }}>
+                {icon}
+            </div>
+            <div>
+                <h4 style={{ fontSize: '1.1rem', marginBottom: '4px' }}>{title}</h4>
+                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>{desc}</p>
+            </div>
+        </div>
+    )
+}
+
+function DesktopHome() {
     return (
         <>
             <div className="background-glow" style={{
@@ -17,7 +103,7 @@ export default function Home() {
 
             <section className="hero-section" style={{
                 padding: 'calc(var(--header-height) + 40px) 0 60px',
-                minHeight: '100dvh', /* Use dvh for mobile stability */
+                minHeight: '100dvh',
                 display: 'flex',
                 alignItems: 'center',
                 position: 'relative',
@@ -25,7 +111,6 @@ export default function Home() {
             }}>
                 <div className="container grid-2">
                     <div className="hero-content animate-fade-in">
-                        {/* ... existing badge ... */}
                         <div style={{
                             display: 'inline-flex', alignItems: 'center', gap: '10px',
                             padding: '8px 16px', background: 'rgba(59, 130, 246, 0.1)',
@@ -45,7 +130,7 @@ export default function Home() {
                         <p style={{ fontSize: 'clamp(1.1rem, 2vw, 1.25rem)', color: 'var(--text-secondary)', marginBottom: '40px', maxWidth: '580px', lineHeight: 1.6 }}>
                             The only finance tracker that runs <strong style={{ color: 'var(--text-main)' }}>100% on your device</strong>. No servers. No selling your data. Just intelligent, local automation.
                         </p>
-                        {/* ... buttons ... */}
+
                         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
                             <Link to="/downloads.html" className="btn btn-primary" style={{ width: '100%', maxWidth: 'sm' }}>
                                 <ArrowDown size={20} />
@@ -55,7 +140,7 @@ export default function Home() {
                                 See How It Works
                             </Link>
                         </div>
-                        {/* ... footer badges ... */}
+
                         <div style={{ marginTop: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', color: 'var(--text-muted)', fontSize: '0.9rem', flexWrap: 'wrap' }}>
                             <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                 <Shield size={16} /> MIT License
@@ -96,7 +181,7 @@ export default function Home() {
                             PennyPilot brings powerful AI features directly to your pocket, powered by on-device processing.
                         </p>
                     </div>
-                    {/* ... grid ... */}
+
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginBottom: '60px' }}>
                         <FeatureCard icon={<Zap size={32} color="var(--primary-rgb)" />} title="Smart Inbox Scan" desc="Connect your Gmail once. We scan for receipts from Uber, Amazon, and Spotify locally on your phone." />
                         <FeatureCard icon={<BarChart3 size={32} color="var(--primary-rgb)" />} title="Safe-to-Spend" desc="Know exactly how much you can spend today based on your budget and upcoming bills." />
@@ -145,10 +230,12 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* Embedded styles for DesktopHome specific layouts that were extracted from general styles */}
             <style>{`
                 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
                 @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
                 @media (max-width: 900px) {
+                     /* Fallbacks for Desktop View on Tablet-ish screens (768-900) */
                     .hero-content { text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
                     .hero-content div[style*="justify-content"] { justify-content: center !important; }
                     .hero-visual { transform: scale(0.95); margin-top: 20px; }
