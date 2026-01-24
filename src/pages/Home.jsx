@@ -34,12 +34,12 @@ function MobileHome() {
                     v1.0 RC Available
                 </div>
 
-                <h1 style={{ fontSize: '2.5rem', lineHeight: 1.1, marginBottom: '16px', letterSpacing: '-0.03em' }}>
+                <h1 style={{ fontSize: '3.2rem', lineHeight: 1, marginBottom: '20px', letterSpacing: '-0.04em', fontWeight: 800 }}>
                     <span className="text-gradient">Private Finance.</span><br />
                     <span>Local First.</span>
                 </h1>
 
-                <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', marginBottom: '32px', lineHeight: 1.5, maxWidth: '320px' }}>
+                <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', marginBottom: '36px', lineHeight: 1.6, maxWidth: '340px' }}>
                     The only finance tracker that runs <strong>100% on your device</strong>. No servers. No tracking.
                 </p>
 
@@ -124,11 +124,11 @@ function DesktopHome() {
                             v1.0 Release Candidate
                         </div>
 
-                        <h1 style={{ marginBottom: '24px', letterSpacing: '-0.03em' }}>
+                        <h1 style={{ marginBottom: '28px', letterSpacing: '-0.04em', fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 800 }}>
                             Your personal financial <span className="text-gradient">navigator.</span>
                         </h1>
-                        <p style={{ fontSize: 'clamp(1.1rem, 2vw, 1.25rem)', color: 'var(--text-secondary)', marginBottom: '40px', maxWidth: '580px', lineHeight: 1.6 }}>
-                            The only finance tracker that runs <strong style={{ color: 'var(--text-main)' }}>100% on your device</strong>. No servers. No selling your data. Just intelligent, local automation.
+                        <p style={{ fontSize: 'clamp(1.2rem, 2vw, 1.4rem)', color: 'var(--text-secondary)', marginBottom: '48px', maxWidth: '620px', lineHeight: 1.6 }}>
+                            PennyPilot is the only finance tracker that runs <strong style={{ color: 'var(--text-main)' }}>100% on your device</strong>. No servers. No selling your data. Just intelligent, local automation.
                         </p>
 
                         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>

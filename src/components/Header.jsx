@@ -71,13 +71,13 @@ export default function Header() {
                 zIndex: 100,
                 transition: 'all 0.3s ease',
                 height: 'var(--header-height)',
-                background: scrolled ? 'rgba(3, 3, 4, 1)' : 'transparent',
+                background: scrolled ? 'rgba(3, 3, 5, 0.85)' : 'transparent',
                 backdropFilter: scrolled ? 'blur(20px)' : 'none',
             }}>
                 <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', zIndex: 1002 }}>
-                        <img src="/assets/pennypilot_logo.png" alt="PennyPilot" style={{ width: '32px', height: '32px' }} />
-                        <span style={{ fontWeight: 700, fontSize: '1.25rem', color: '#fff', letterSpacing: '-0.02em' }}>PennyPilot</span>
+                    <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: '14px', zIndex: 1002 }}>
+                        <img src="/assets/logo.png" alt="PennyPilot" className="logo" />
+                        <span style={{ fontWeight: 800, fontSize: '1.4rem', color: '#fff', letterSpacing: '-0.03em' }}>PennyPilot</span>
                     </NavLink>
 
                     {/* Desktop Nav */}

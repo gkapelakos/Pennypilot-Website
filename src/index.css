@@ -4,9 +4,9 @@
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Colors - Core */
-  --bg-core: #030304;
-  --bg-gradient-start: #050505;
-  --bg-gradient-end: #0a0a0c;
+  --bg-core: #030305;
+  --bg-gradient-start: #060609;
+  --bg-gradient-end: #0c0c12;
 
   /* Colors - Surface */
   --surface-1: rgba(255, 255, 255, 0.03);
@@ -17,13 +17,14 @@
   --primary: #3b82f6;
   --primary-rgb: 59, 130, 246;
   --primary-light: #60a5fa;
-  --primary-dark: #2563eb;
+  --primary-dark: #1d4ed8;
+  --accent: #0ea5e9;
 
   /* Colors - Semantic */
   --text-main: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
-  --accent-success: #22c55e;
+  --accent-success: #10b981;
   --accent-error: #ef4444;
 
   /* Borders & Shadows */
@@ -36,8 +37,8 @@
   --radius-lg: 32px;
   --radius-full: 9999px;
 
-  --header-height: 64px;
-  --section-padding: 60px;
+  --header-height: 72px;
+  --section-padding: 80px;
 }
 
 @media (min-width: 768px) {
@@ -207,20 +208,40 @@ button {
 
 /* Gradient Text */
 .text-gradient {
-  background: linear-gradient(135deg, #fff 0%, #818cf8 100%);
+  background: linear-gradient(135deg, #fff 30%, var(--primary-light) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline-block;
+  display: inline;
+  background-size: 100% 100%;
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 /* Glassmorphism */
 .glass-panel {
-  background: rgba(20, 20, 23, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-highlight);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
 }
 
 /* Mobile Nav Styles */
