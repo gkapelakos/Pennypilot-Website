@@ -1,171 +1,147 @@
-/* eslint-disable react/prop-types */
-import { NavLink, useLocation } from 'react-router-dom'
-import { Github, Menu, X } from 'lucide-react'
+import { Github, Menu, X, Sun, Moon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export default function Header() {
-    const { hash } = useLocation();
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('pp-theme') || 'dark'
+    }
+    return 'dark'
+  })
 
-    useEffect(() => {
-        if (hash) {
-            const element = document.getElementById(hash.replace('#', ''));
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }, [hash]);
+  // Apply theme to document
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('pp-theme', theme)
+  }, [theme])
 
-    // Handle scroll effect
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
 
-    // Close mobile menu on route change
-    useEffect(() => {
-        setIsMobileMenuOpen(false);
-    }, [hash]);
+  // Scroll effect
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
-    // Unified scroll lock for mobile
-    useEffect(() => {
-        const body = document.body;
-        const html = document.documentElement;
-        if (isMobileMenuOpen) {
-            body.style.overflow = 'hidden';
-            body.style.height = '100vh';
-            body.style.touchAction = 'none';
-            html.style.overflow = 'hidden'; // Lock HTML as well
-        } else {
-            body.style.overflow = '';
-            body.style.height = '';
-            body.style.touchAction = '';
-            html.style.overflow = '';
-        }
-        return () => {
-            body.style.overflow = '';
-            body.style.height = '';
-            body.style.touchAction = '';
-            html.style.overflow = '';
-        };
-    }, [isMobileMenuOpen]);
+  // Close mobile menu on hash change
+  useEffect(() => {
+    const handleHashChange = () => setIsMobileMenuOpen(false)
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
 
-    const navLinks = [
-        { name: 'Home', path: '/', isHash: false },
-        { name: 'Features', path: '/features.html', isHash: false },
-        { name: 'Downloads', path: '/downloads.html', isHash: false },
-        { name: 'License', path: '/license.html', isHash: false },
-    ];
+  // Lock body scroll when mobile menu open
+  useEffect(() => {
+    const body = document.body
+    if (isMobileMenuOpen) {
+      body.style.overflow = 'hidden'
+      body.style.touchAction = 'none'
+    } else {
+      body.style.overflow = ''
+      body.style.touchAction = ''
+    }
+    return () => { body.style.overflow = ''; body.style.touchAction = '' }
+  }, [isMobileMenuOpen])
 
-    return (
-        <>
-            <header style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                zIndex: 100,
-                transition: 'all 0.3s ease',
-                height: 'var(--header-height)',
-                background: scrolled ? 'rgba(3, 3, 5, 0.85)' : 'transparent',
-                backdropFilter: scrolled ? 'blur(20px)' : 'none',
-            }}>
-                <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: '14px', zIndex: 1002 }}>
-                        <img src="/assets/logo.png" alt="PennyPilot" className="logo" />
-                        <span style={{ fontWeight: 800, fontSize: '1.4rem', color: '#fff', letterSpacing: '-0.03em' }}>PennyPilot</span>
-                    </NavLink>
+  const navLinks = [
+    { name: 'How It Works', href: '#how-it-works' },
+    { name: 'Privacy', href: '#privacy' },
+    { name: 'Open Source', href: '#open-source' },
+  ]
 
-                    {/* Desktop Nav */}
-                    <nav className="desktop-nav" style={{ display: 'none', alignItems: 'center', gap: '32px' }}>
-                        {navLinks.map((link) => (
-                            link.isHash ? (
-                                <a key={link.name} href={link.path} className="nav-link" style={{
-                                    color: 'var(--text-secondary)',
-                                    fontWeight: 500,
-                                    fontSize: '0.95rem',
-                                    transition: 'color 0.2s'
-                                }}>{link.name}</a>
-                            ) : (
-                                <NavLink key={link.name} to={link.path} end
-                                    className={({ isActive }) => isActive ? "active-link" : ""}
-                                    style={({ isActive }) => ({
-                                        color: isActive ? 'var(--text-main)' : 'var(--text-secondary)',
-                                        fontWeight: 500,
-                                        fontSize: '0.95rem',
-                                        transition: 'color 0.2s'
-                                    })}
-                                >
-                                    {link.name}
-                                </NavLink>
-                            )
-                        ))}
+  return (
+    <>
+      <header style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        height: 'var(--header-height)',
+        background: scrolled ? 'var(--bg-page)' : 'transparent',
+        opacity: scrolled ? 0.92 : 1,
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        borderBottom: scrolled ? '1px solid var(--border-default)' : '1px solid transparent',
+        transition: 'all var(--duration-normal) ease',
+      }}>
+        <div className="container" style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', zIndex: 102 }}>
+            <img src="/assets/logo.png" alt="PennyPilot" style={{ height: '32px', width: 'auto', borderRadius: '8px' }} />
+            <span style={{ fontWeight: 700, fontSize: '1.15rem', letterSpacing: '-0.03em' }}>PennyPilot</span>
+          </a>
 
-                        <div style={{ width: '1px', height: '24px', background: 'var(--border-subtle)' }}></div>
+          {/* Desktop Nav */}
+          <nav className="desktop-nav" style={{ display: 'none', alignItems: 'center', gap: 'var(--space-8)' }}>
+            {navLinks.map((link) => (
+              <a key={link.name} href={link.href} className="nav-link">{link.name}</a>
+            ))}
 
-                        <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer"
-                            style={{ display: 'flex', alignItems: 'center', color: 'var(--text-secondary)', transition: 'color 0.2s' }}
-                            className="github-link">
-                            <Github size={20} />
-                        </a>
-                    </nav>
+            <div style={{ width: '1px', height: '20px', background: 'var(--border-default)' }}></div>
 
-                    {/* Mobile Menu Toggle */}
-                    <button
-                        className="mobile-toggle"
-                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        style={{ zIndex: 1100, display: 'flex', color: 'var(--text-main)' }}
-                        aria-label="Toggle menu"
-                    >
-                        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                    </button>
-                </div>
+            <a href="https://github.com/gkapelakos/PennyPilot/releases" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '8px 20px', minHeight: '36px', fontSize: 'var(--text-xs)' }}>
+              Download APK
+            </a>
 
-                <style>{`
-                    @media (min-width: 768px) {
-                        .desktop-nav { display: flex !important; }
-                        .mobile-toggle { display: none !important; }
-                    }
-                    .active-link { color: var(--text-main) !important; }
-                    .github-link:hover { color: var(--text-main) !important; }
-                `}</style>
-            </header>
+            <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer"
+              style={{ display: 'flex', alignItems: 'center', color: 'var(--text-muted)' }}
+              className="nav-link" aria-label="GitHub repository">
+              <Github size={18} />
+            </a>
 
-            {/* Mobile Nav Overlay & Menu - Moved OUTSIDE of header to avoid stacking context issues */}
-            <div className={`mobile-nav-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)} />
+            <button onClick={toggleTheme} className="nav-link" style={{ display: 'flex', alignItems: 'center' }} aria-label="Toggle theme">
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+          </nav>
 
-            <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-                <nav style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                    {navLinks.map((link) => (
-                        link.isHash ? (
-                            <a key={link.name} href={link.path} onClick={() => setIsMobileMenuOpen(false)}
-                                style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--text-main)' }}>
-                                {link.name}
-                            </a>
-                        ) : (
-                            <NavLink key={link.name} to={link.path} end onClick={() => setIsMobileMenuOpen(false)}
-                                className={({ isActive }) => isActive ? "active" : ""}
-                                style={({ isActive }) => ({
-                                    fontSize: '1.25rem',
-                                    fontWeight: 600,
-                                    color: isActive ? 'var(--primary)' : 'var(--text-main)'
-                                })}
-                            >
-                                {link.name}
-                            </NavLink>
-                        )
-                    ))}
-                    <div style={{ height: '1px', background: 'var(--border-subtle)', margin: '10px 0' }}></div>
-                    <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer"
-                        style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1.1rem', color: 'var(--text-secondary)' }}>
-                        <Github size={24} /> GitHub Repo
-                    </a>
-                </nav>
-            </div>
-        </>
-    )
+          {/* Mobile: theme toggle + hamburger */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+            <button onClick={toggleTheme} className="mobile-theme-toggle"
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: 'var(--radius-sm)', color: 'var(--text-secondary)' }}
+              aria-label="Toggle theme">
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button
+              className="mobile-toggle"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: 'var(--radius-sm)', color: 'var(--text-primary)' }}
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+
+        <style>{`
+          @media (min-width: 768px) {
+            .desktop-nav { display: flex !important; }
+            .mobile-toggle, .mobile-theme-toggle { display: none !important; }
+          }
+          .nav-link:hover { color: var(--text-primary) !important; }
+        `}</style>
+      </header>
+
+      {/* Mobile Overlay & Menu */}
+      <div className={`mobile-nav-overlay ${isMobileMenuOpen ? 'open' : ''}`} onClick={() => setIsMobileMenuOpen(false)} />
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+        {navLinks.map((link) => (
+          <a key={link.name} href={link.href} onClick={() => setIsMobileMenuOpen(false)}>
+            {link.name}
+          </a>
+        ))}
+        <div style={{ height: '1px', background: 'var(--border-default)', margin: 'var(--space-2) 0' }}></div>
+        <a href="https://github.com/gkapelakos/PennyPilot/releases" target="_blank" rel="noreferrer"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="btn btn-primary" style={{ width: '100%', marginTop: 'var(--space-2)' }}>
+          Download APK
+        </a>
+        <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer"
+          onClick={() => setIsMobileMenuOpen(false)}>
+          <Github size={20} /> GitHub Repository
+        </a>
+      </div>
+    </>
+  )
 }

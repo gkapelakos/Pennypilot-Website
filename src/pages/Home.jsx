@@ -1,307 +1,347 @@
-import { ArrowDown, Shield, BarChart3, Wrench, X, Check, ArrowRight, Smartphone, Zap, Github, Lock } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import { useIsMobile } from '../hooks/useIsMobile'
+import { ArrowDown, ArrowRight, Shield, Smartphone, Github, Lock, ScanLine, BarChart3, Fingerprint, Zap, Check, X, Database, Cpu } from 'lucide-react'
 
 export default function Home() {
-    const isMobile = useIsMobile();
-
-    return isMobile ? <MobileHome /> : <DesktopHome />;
+  return (
+    <>
+      <HeroSection />
+      <ProblemSection />
+      <HowItWorksSection />
+      <PrivacySection />
+      <OpenSourceSection />
+      <FooterCTASection />
+    </>
+  )
 }
 
-function MobileHome() {
-    return (
-        <div style={{ paddingBottom: '80px' }}>
-            {/* Simplified Background for Mobile Performance */}
+/* ============================================================
+   1. Hero — what it does + why it's different + CTA + screenshot
+   ============================================================ */
+function HeroSection() {
+  return (
+    <section id="hero" className="section" style={{ paddingTop: 'calc(var(--header-height) + var(--space-16))', minHeight: '100dvh', display: 'flex', alignItems: 'center' }}>
+      <div className="container">
+        <div className="grid-2">
+          <div className="animate-fade-in">
+            <div className="tag tag-indigo" style={{ marginBottom: 'var(--space-6)' }}>
+              <span className="dot-pulse"></span>
+              Open Source &middot; MIT Licensed
+            </div>
+
+            <h1 style={{ marginBottom: 'var(--space-6)' }}>
+              Track every dollar.<br />
+              <span className="text-gradient">Nothing leaves your phone.</span>
+            </h1>
+
+            <p className="section-desc" style={{ marginBottom: 'var(--space-10)' }}>
+              PennyPilot scans receipts, catches subscriptions, and shows you exactly what you can spend today — all on-device, with zero cloud dependency.
+            </p>
+
+            <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+              <a href="https://github.com/gkapelakos/PennyPilot/releases" target="_blank" rel="noreferrer" className="btn btn-primary">
+                <ArrowDown size={18} /> Download APK
+              </a>
+              <a href="#how-it-works" className="btn btn-secondary">
+                See How It Works <ArrowRight size={16} />
+              </a>
+            </div>
+
+            <div style={{ marginTop: 'var(--space-8)', display: 'flex', gap: 'var(--space-6)', fontSize: 'var(--text-sm)', color: 'var(--text-muted)' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                <Shield size={14} /> MIT License
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
+                <Smartphone size={14} /> Android & Linux
+              </span>
+            </div>
+          </div>
+
+          <div className="animate-float" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
             <div style={{
-                position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-                background: 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.08), transparent 50%)',
-                zIndex: -1, pointerEvents: 'none'
+              position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+              width: 'min(380px, 85vw)', height: 'min(380px, 85vw)',
+              background: 'radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%)',
+              filter: 'blur(50px)', zIndex: -1,
             }}></div>
-
-            {/* Mobile Hero */}
-            <section style={{
-                padding: 'calc(var(--header-height) + 20px) 20px 40px',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
-                minHeight: '80dvh', justifyContent: 'center'
-            }}>
-                <div style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '8px',
-                    padding: '6px 14px', background: 'rgba(59, 130, 246, 0.1)',
-                    borderRadius: '20px', color: '#60a5fa', fontSize: '0.8rem', fontWeight: 600, marginBottom: '24px',
-                    border: '1px solid rgba(59, 130, 246, 0.2)'
-                }}>
-                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#3b82f6' }}></span>
-                    v1.0 RC Available
-                </div>
-
-                <h1 style={{ fontSize: '3.2rem', lineHeight: 1, marginBottom: '20px', letterSpacing: '-0.04em', fontWeight: 800 }}>
-                    <span className="text-gradient">Private Finance.</span><br />
-                    <span>Local First.</span>
-                </h1>
-
-                <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', marginBottom: '36px', lineHeight: 1.6, maxWidth: '340px' }}>
-                    The only finance tracker that runs <strong>100% on your device</strong>. No servers. No tracking.
-                </p>
-
-                <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    <Link to="/downloads.html" className="btn btn-primary" style={{ width: '100%', height: '56px', fontSize: '1.1rem' }}>
-                        <ArrowDown size={22} /> Download APK
-                    </Link>
-                    <Link to="/features.html" className="btn btn-secondary" style={{ width: '100%', height: '56px' }}>
-                        See Features
-                    </Link>
-                </div>
-
-                <div style={{ marginTop: '32px', display: 'flex', gap: '20px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Shield size={14} /> MIT License</span>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}><Github size={14} /> Open Source</span>
-                </div>
-            </section>
-
-            {/* Mobile Features List */}
-            <section style={{ padding: '20px 20px 40px' }}>
-                <h3 style={{ fontSize: '1.5rem', marginBottom: '24px', textAlign: 'center' }}>Why PennyPilot?</h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <MobileFeatureCard icon={<Zap size={24} color="#60a5fa" />} title="Smart Scan" desc="Auto-scan receipts from inbox locally." />
-                    <MobileFeatureCard icon={<Lock size={24} color="#60a5fa" />} title="Local Data" desc="Encrypted Db. No cloud sync." />
-                    <MobileFeatureCard icon={<BarChart3 size={24} color="#60a5fa" />} title="Budgeting" desc="Safe-to-spend analytics." />
-                </div>
-            </section>
+            <div style={{ maxWidth: '300px', width: '100%' }}>
+              <img
+                src="/assets/iPhone 15 Mockup Poster.png"
+                alt="PennyPilot running on iPhone — inbox scan view showing receipt detection"
+                style={{ width: '100%', borderRadius: '40px', border: '6px solid var(--border-default)', boxShadow: 'var(--shadow-lg)' }}
+              />
+            </div>
+          </div>
         </div>
-    )
+      </div>
+
+      <style>{`
+        @media (max-width: 767px) {
+          #hero .grid-2 { text-align: center; }
+          #hero .grid-2 > div:first-child { display: flex; flex-direction: column; align-items: center; }
+          #hero .section-desc { margin-left: auto; margin-right: auto; }
+        }
+        @media (min-width: 768px) {
+          #hero .grid-2 > div:last-child { order: -1; }
+        }
+      `}</style>
+    </section>
+  )
 }
 
-function MobileFeatureCard({ icon, title, desc }) {
-    return (
-        <div className="glass-panel" style={{
-            padding: '20px', borderRadius: '16px', display: 'flex', alignItems: 'center', gap: '16px'
-        }}>
-            <div style={{ padding: '10px', background: 'rgba(59,130,246,0.1)', borderRadius: '12px' }}>
-                {icon}
+/* ============================================================
+   2. The Problem — brief, sets up why local-first matters
+   ============================================================ */
+function ProblemSection() {
+  return (
+    <section className="section" style={{ background: 'linear-gradient(to bottom, transparent, var(--bg-surface), transparent)' }}>
+      <div className="container" style={{ maxWidth: '720px', textAlign: 'center' }}>
+        <div className="section-label" style={{ justifyContent: 'center' }}>
+          The problem
+        </div>
+        <h2 className="section-title">
+          Your finance app has your bank password.
+        </h2>
+        <p className="section-desc" style={{ margin: '0 auto', lineHeight: 1.8 }}>
+          Most personal finance tools ask you to hand over your banking credentials to a third party.
+          They store your transaction history on their servers, monetize it through data brokers,
+          and go down when their cloud does. You are the product, and your data is the inventory.
+        </p>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================
+   3. How It Works — 4 capabilities with screenshots
+   ============================================================ */
+function HowItWorksSection() {
+  const features = [
+    {
+      icon: <ScanLine size={22} />,
+      iconClass: 'feature-icon-indigo',
+      title: 'On-Device Receipt Scanning',
+      desc: 'Point your camera at a receipt or connect your email once. PennyPilot extracts line items using on-device OCR — the image never leaves your phone.',
+      screenshot: '/assets/screenshot-scan.png',
+      screenshotAlt: 'Receipt scan results showing extracted line items and merchant details',
+    },
+    {
+      icon: <Zap size={22} />,
+      iconClass: 'feature-icon-emerald',
+      title: 'Subscription Detection',
+      desc: 'Automatically surfaces recurring charges from your transaction history. See exactly what you are paying monthly, and get alerts before renewals hit.',
+      screenshot: '/assets/screenshot-inbox.png',
+      screenshotAlt: 'Inbox scan showing detected subscriptions and receipts from email',
+    },
+    {
+      icon: <BarChart3 size={22} />,
+      iconClass: 'feature-icon-indigo',
+      title: 'Local Dashboards & Insights',
+      desc: 'Spending breakdowns, category trends, and a safe-to-spend number that accounts for upcoming bills — all computed on-device from your local Isar database.',
+      screenshot: '/assets/screenshot-overview.png',
+      screenshotAlt: 'Dashboard overview showing spending breakdown and safe-to-spend balance',
+    },
+    {
+      icon: <Fingerprint size={22} />,
+      iconClass: 'feature-icon-emerald',
+      title: 'Biometric Lock',
+      desc: 'Protect access with your fingerprint or face. Optional Google OAuth for quick sign-in, but your data stays in the local encrypted database either way.',
+      screenshot: '/assets/screenshot-insights.png',
+      screenshotAlt: 'Insights view showing spending analytics and category breakdowns',
+    },
+  ]
+
+  return (
+    <section id="how-it-works" className="section">
+      <div className="container">
+        <div className="section-header">
+          <div className="section-label" style={{ justifyContent: 'center' }}>
+            <Zap size={14} /> How it works
+          </div>
+          <h2 className="section-title">Four capabilities, one local database</h2>
+          <p className="section-desc">
+            Every feature runs on your device. No background sync to a server, no API keys shared with third parties.
+          </p>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-16)' }}>
+          {features.map((f, i) => (
+            <div key={f.title} className="grid-2" style={{ gap: 'var(--space-10)' }}>
+              <div className="feature-item" style={{ order: i % 2 === 0 ? 0 : 1 }}>
+                <div className={`feature-icon ${f.iconClass}`}>
+                  {f.icon}
+                </div>
+                <h3 style={{ fontSize: 'var(--text-2xl)' }}>{f.title}</h3>
+                <p style={{ fontSize: 'var(--text-base)', lineHeight: 1.7 }}>{f.desc}</p>
+              </div>
+              <div className="screenshot-frame" style={{ order: i % 2 === 0 ? 1 : 0 }}>
+                <img src={f.screenshot} alt={f.screenshotAlt} loading="lazy" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================
+   4. Privacy / Architecture — the real differentiator
+   ============================================================ */
+function PrivacySection() {
+  const pillars = [
+    {
+      icon: <Database size={20} />,
+      title: 'Local Isar Database',
+      desc: 'Your transactions, receipts, and categories live in an encrypted Isar database stored only on your device. We cannot access it.',
+    },
+    {
+      icon: <Cpu size={20} />,
+      title: 'On-Device ML',
+      desc: 'Receipt OCR and merchant classification run through ML Kit and TensorFlow Lite — entirely on your phone\'s hardware. No cloud vision APIs.',
+    },
+    {
+      icon: <Shield size={20} />,
+      title: 'Optional P2P Sync',
+      desc: 'Share data between your own devices using CRDT-based peer-to-peer sync. There is no central server — your devices talk directly to each other.',
+    },
+    {
+      icon: <Github size={20} />,
+      title: 'Open Source (MIT)',
+      desc: 'Every line of code is auditable. No hidden telemetry, no analytics SDKs, no mysterious network calls. The repo is the proof.',
+    },
+  ]
+
+  return (
+    <section id="privacy" className="section" style={{ background: 'linear-gradient(to bottom, transparent, var(--bg-surface), transparent)' }}>
+      <div className="container">
+        <div className="section-header">
+          <div className="section-label" style={{ justifyContent: 'center', color: 'var(--emerald)' }}>
+            <Lock size={14} /> Architecture
+          </div>
+          <h2 className="section-title">
+            Built around a <span className="text-gradient">privacy-first</span> architecture
+          </h2>
+          <p className="section-desc">
+            This is not a marketing claim — it is a technical constraint. The architecture makes it physically impossible for us to access your data.
+          </p>
+        </div>
+
+        <div className="arch-grid">
+          {pillars.map((p) => (
+            <div key={p.title} className="arch-card">
+              <div className="arch-icon">{p.icon}</div>
+              <h4>{p.title}</h4>
+              <p>{p.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div style={{ marginTop: 'var(--space-12)' }}>
+          <TheNoPhilosophy />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function TheNoPhilosophy() {
+  const items = [
+    { negative: true, icon: <X size={16} />, title: 'No Cloud Sync', desc: 'Your financial data stays on your phone.' },
+    { negative: true, icon: <X size={16} />, title: 'No Bank APIs', desc: 'We never see your banking credentials.' },
+    { negative: true, icon: <X size={16} />, title: 'No Analytics', desc: 'Zero tracking scripts. Zero pings to any server.' },
+    { negative: false, icon: <Check size={16} />, title: 'Yes to Freedom', desc: 'Export your data to CSV or JSON anytime.' },
+  ]
+
+  return (
+    <div className="card-flat" style={{ maxWidth: '560px', margin: '0 auto' }}>
+      <h3 style={{ fontSize: 'var(--text-xl)', marginBottom: 'var(--space-6)', textAlign: 'center' }}>The "No" Philosophy</h3>
+      <div className="check-list">
+        {items.map((item) => (
+          <div key={item.title} className="check-item">
+            <div className={`check-icon ${item.negative ? 'check-icon-red' : 'check-icon-green'}`}>
+              {item.icon}
             </div>
             <div>
-                <h4 style={{ fontSize: '1.1rem', marginBottom: '4px' }}>{title}</h4>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>{desc}</p>
+              <strong>{item.title}</strong>
+              <span>{item.desc}</span>
             </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+/* ============================================================
+   5. Open Source / Tech Stack
+   ============================================================ */
+function OpenSourceSection() {
+  const tech = [
+    { label: 'Flutter & Dart', desc: 'Cross-platform from one codebase: Android, iOS, desktop, web.' },
+    { label: 'Isar Database', desc: 'Fast, type-safe local database with encrypted storage.' },
+    { label: 'ML Kit / TFLite', desc: 'On-device machine learning for receipt OCR and classification.' },
+    { label: 'Riverpod', desc: 'Reactive state management with compile-time safety.' },
+  ]
+
+  return (
+    <section id="open-source" className="section">
+      <div className="container">
+        <div className="grid-2">
+          <div>
+            <div className="section-label">
+              <Github size={14} /> Open Source
+            </div>
+            <h2 className="section-title" style={{ marginBottom: 'var(--space-6)' }}>
+              Built in the open. Auditable by anyone.
+            </h2>
+            <p className="section-desc" style={{ marginBottom: 'var(--space-8)' }}>
+              PennyPilot is built with Flutter — a single codebase targeting Android, iOS, Linux, macOS, Windows, and web. The entire codebase is MIT-licensed on GitHub.
+            </p>
+            <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+              <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer" className="btn btn-primary">
+                <Github size={18} /> View on GitHub
+              </a>
+              <a href="https://github.com/gkapelakos/PennyPilot/issues" target="_blank" rel="noreferrer" className="btn btn-secondary">
+                Report an Issue
+              </a>
+            </div>
+          </div>
+
+          <div className="grid-4" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
+            {tech.map((t) => (
+              <div key={t.label} className="card" style={{ padding: 'var(--space-5)' }}>
+                <h4 style={{ fontSize: 'var(--text-sm)', marginBottom: 'var(--space-1)' }}>{t.label}</h4>
+                <p style={{ fontSize: 'var(--text-xs)', color: 'var(--text-muted)', lineHeight: 1.5 }}>{t.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-    )
+      </div>
+    </section>
+  )
 }
 
-function DesktopHome() {
-    return (
-        <>
-            <div className="background-glow" style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                background: 'radial-gradient(circle at 60% 0%, rgba(59, 130, 246, 0.12), transparent 60%)',
-                zIndex: -1,
-                pointerEvents: 'none'
-            }}></div>
-
-            <section className="hero-section" style={{
-                padding: 'calc(var(--header-height) + 40px) 0 60px',
-                minHeight: '100dvh',
-                display: 'flex',
-                alignItems: 'center',
-                position: 'relative',
-                overflow: 'hidden'
-            }}>
-                <div className="container grid-2">
-                    <div className="hero-content animate-fade-in">
-                        <div style={{
-                            display: 'inline-flex', alignItems: 'center', gap: '10px',
-                            padding: '8px 16px', background: 'rgba(59, 130, 246, 0.1)',
-                            borderRadius: '30px', color: '#60a5fa', fontSize: '0.85rem', fontWeight: 600, marginBottom: '32px',
-                            border: '1px solid rgba(59, 130, 246, 0.2)', letterSpacing: '0.02em'
-                        }}>
-                            <span style={{ position: 'relative', display: 'flex', height: '8px', width: '8px' }}>
-                                <span style={{ position: 'absolute', display: 'inline-flex', height: '100%', width: '100%', borderRadius: '50%', backgroundColor: '#3b82f6', opacity: 0.75, animation: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite' }}></span>
-                                <span style={{ position: 'relative', display: 'inline-flex', borderRadius: '50%', height: '8px', width: '8px', backgroundColor: '#3b82f6' }}></span>
-                            </span>
-                            v1.0 Release Candidate
-                        </div>
-
-                        <h1 style={{ marginBottom: '28px', letterSpacing: '-0.04em', fontSize: 'clamp(3rem, 5vw, 4.5rem)', fontWeight: 800 }}>
-                            Your personal financial <span className="text-gradient">navigator.</span>
-                        </h1>
-                        <p style={{ fontSize: 'clamp(1.2rem, 2vw, 1.4rem)', color: 'var(--text-secondary)', marginBottom: '48px', maxWidth: '620px', lineHeight: 1.6 }}>
-                            PennyPilot is the only finance tracker that runs <strong style={{ color: 'var(--text-main)' }}>100% on your device</strong>. No servers. No selling your data. Just intelligent, local automation.
-                        </p>
-
-                        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                            <Link to="/downloads.html" className="btn btn-primary" style={{ width: '100%', maxWidth: 'sm' }}>
-                                <ArrowDown size={20} />
-                                Download APK
-                            </Link>
-                            <Link to="/features.html" className="btn btn-secondary" style={{ width: '100%', maxWidth: 'sm' }}>
-                                See How It Works
-                            </Link>
-                        </div>
-
-                        <div style={{ marginTop: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px', color: 'var(--text-muted)', fontSize: '0.9rem', flexWrap: 'wrap' }}>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <Shield size={16} /> MIT License
-                            </span>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <Smartphone size={16} /> Android & Linux
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className="hero-visual animate-float" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-                        <div style={{
-                            position: 'absolute',
-                            top: '50%', left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            width: 'min(400px, 90vw)', height: 'min(400px, 90vw)',
-                            background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)',
-                            filter: 'blur(60px)',
-                            zIndex: -1
-                        }}></div>
-
-                        <div className="phone-mockup" style={{
-                            filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.5))',
-                            maxWidth: '320px',
-                            width: '100%'
-                        }}>
-                            <img src="/assets/iPhone 15 Mockup Poster.png" alt="PennyPilot App Interface" style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '48px', border: '8px solid #1a1a1a' }} />
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="features" className="section-padding" style={{ position: 'relative' }}>
-                <div className="container">
-                    <div style={{ textAlign: 'center', marginBottom: '80px', maxWidth: '700px', margin: '0 auto 80px' }}>
-                        <h2 style={{ marginBottom: '20px' }}>Intelligence without the <span className="text-gradient">Cloud</span></h2>
-                        <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)' }}>
-                            PennyPilot brings powerful AI features directly to your pocket, powered by on-device processing.
-                        </p>
-                    </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginBottom: '60px' }}>
-                        <FeatureCard icon={<Zap size={32} color="var(--primary-rgb)" />} title="Smart Inbox Scan" desc="Connect your Gmail once. We scan for receipts from Uber, Amazon, and Spotify locally on your phone." />
-                        <FeatureCard icon={<BarChart3 size={32} color="var(--primary-rgb)" />} title="Safe-to-Spend" desc="Know exactly how much you can spend today based on your budget and upcoming bills." />
-                        <FeatureCard icon={<Shield size={32} color="var(--primary-rgb)" />} title="Local-First" desc="Your database (Isar) is encrypted and stored only on your device. We physically cannot see your data." />
-                        <FeatureCard icon={<Wrench size={32} color="var(--primary-rgb)" />} title="Material You" desc="A stunning, adaptive interface built with Flutter 3 that respects your system theme preferences." />
-                    </div>
-                    <div style={{ textAlign: 'center' }}>
-                        <Link to="/features.html" className="btn btn-secondary" style={{ padding: '16px 48px' }}>
-                            Explore All Features <ArrowRight size={18} />
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
-            <section id="philosophy" className="section-padding" style={{ background: 'linear-gradient(to bottom, transparent, rgba(255,255,255,0.02))' }}>
-                <div className="container grid-2">
-                    <div className="philosophy-text">
-                        <h2 style={{ marginBottom: '24px' }}>The "No" Philosophy</h2>
-                        <p style={{ fontSize: '1.15rem', color: 'var(--text-secondary)', marginBottom: '40px', lineHeight: 1.7 }}>
-                            Modern apps treat you like a product. They want your data, your attention, and your monthly subscription. <br /><br />
-                            <strong style={{ color: 'var(--text-main)' }}>PennyPilot is different.</strong>
-                        </p>
-
-                        <ul style={{ display: 'flex', flexDirection: 'column', gap: '24px', listStyle: 'none' }}>
-                            <CheckItem negative icon={<X size={20} />} title="No Cloud Sync" desc="Your financial life stays on your phone." />
-                            <CheckItem negative icon={<X size={20} />} title="No Bank APIs" desc="We don't want your banking credentials." />
-                            <CheckItem negative icon={<X size={20} />} title="No Analytics" desc="Zero tracking scripts. Zero pings." />
-                            <CheckItem icon={<Check size={20} />} title="Yes to Freedom" desc="Export your data to CSV/JSON anytime." />
-                        </ul>
-                    </div>
-
-                    <div className="philosophy-visual" style={{ display: 'flex', justifyContent: 'center' }}>
-                        <div style={{
-                            width: '100%', maxWidth: '360px', aspectRatio: '1/1',
-                            background: 'linear-gradient(135deg, rgba(59,130,246,0.1), rgba(59,130,246,0.02))',
-                            borderRadius: '50%',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            border: '1px solid rgba(59,130,246,0.1)',
-                            boxShadow: '0 0 80px rgba(59,130,246,0.08)',
-                            position: 'relative'
-                        }}>
-                            <Shield size={140} strokeWidth={0.8} color="rgba(59,130,246,0.8)" />
-                            <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1px dashed rgba(59,130,246,0.2)', animation: 'spin 30s linear infinite' }}></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Embedded styles for DesktopHome specific layouts that were extracted from general styles */}
-            <style>{`
-                @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-                @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
-                @media (max-width: 900px) {
-                     /* Fallbacks for Desktop View on Tablet-ish screens (768-900) */
-                    .hero-content { text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; }
-                    .hero-content div[style*="justify-content"] { justify-content: center !important; }
-                    .hero-visual { transform: scale(0.95); margin-top: 20px; }
-                    .btn { width: 100%; max-width: 320px; }
-                    div[style*="flex-wrap: wrap"] { justify-content: center; }
-                    .philosophy-text { order: 1; text-align: center; }
-                    .philosophy-text ul { align-items: center; }
-                    .philosophy-visual { order: 2; margin-top: 40px; }
-                }
-                @media (min-width: 901px) {
-                    .phone-mockup { transform: rotate(-5deg); }
-                    .philosophy-text { order: 2; }
-                    .philosophy-visual { order: 1; }
-                    div[style*="display: flex; gap: 16px"] { justify-content: flex-start !important; }
-                    .hero-content { text-align: left; align-items: flex-start; }
-                    .hero-content > div[style*="justify-content: center"] { justify-content: flex-start !important; }
-                }
-            `}</style>
-        </>
-    )
-}
-
-function FeatureCard({ icon, title, desc }) {
-    return (
-        <div className="glass-panel" style={{
-            padding: '40px',
-            borderRadius: 'var(--radius-lg)',
-            transition: 'transform 0.3s ease, border-color 0.3s',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column'
-        }}>
-            <div style={{
-                marginBottom: '24px',
-                background: 'rgba(59,130,246,0.08)',
-                width: '64px', height: '64px',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                borderRadius: '20px',
-                color: '#60a5fa'
-            }}>
-                {icon}
-            </div>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '16px' }}>{title}</h3>
-            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, flex: 1 }}>{desc}</p>
+/* ============================================================
+   6. Footer CTA — repeat primary action + links
+   ============================================================ */
+function FooterCTASection() {
+  return (
+    <section className="section" style={{ textAlign: 'center' }}>
+      <div className="container" style={{ maxWidth: '600px' }}>
+        <h2 className="section-title" style={{ marginBottom: 'var(--space-4)' }}>
+          Your finances. Your device. Your rules.
+        </h2>
+        <p className="section-desc" style={{ margin: '0 auto var(--space-8)', textAlign: 'center' }}>
+          Download PennyPilot, or grab the source code and build it yourself.
+        </p>
+        <div style={{ display: 'flex', gap: 'var(--space-3)', justifyContent: 'center', flexWrap: 'wrap' }}>
+          <a href="https://github.com/gkapelakos/PennyPilot/releases" target="_blank" rel="noreferrer" className="btn btn-primary">
+            <ArrowDown size={18} /> Download APK
+          </a>
+          <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer" className="btn btn-secondary">
+            <Github size={18} /> GitHub
+          </a>
         </div>
-    )
-}
-
-function CheckItem({ icon, title, desc, negative }) {
-    return (
-        <li style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
-            <div style={{
-                flexShrink: 0,
-                width: '36px', height: '36px',
-                borderRadius: '50%',
-                background: negative ? 'rgba(239, 68, 68, 0.1)' : 'rgba(34, 197, 94, 0.1)',
-                color: negative ? '#ef4444' : '#22c55e',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                marginTop: '4px'
-            }}>
-                {icon}
-            </div>
-            <div style={{ textAlign: 'left' }}>
-                <strong style={{ display: 'block', marginBottom: '4px', fontSize: '1.15rem' }}>{title}</strong>
-                <span style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}>{desc}</span>
-            </div>
-        </li>
-    )
+      </div>
+    </section>
+  )
 }

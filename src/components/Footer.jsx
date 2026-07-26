@@ -1,41 +1,25 @@
-import { Link } from 'react-router-dom'
-
 export default function Footer() {
-    return (
-        <footer style={{
-            borderTop: '1px solid var(--border-subtle)',
-            padding: '60px 0 40px',
-            marginTop: 'auto',
-            backgroundColor: 'var(--bg-card)'
-        }}>
-            <div className="container">
-                <div className="footer-content" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '40px', marginBottom: '40px' }}>
-                    <div>
-                        <span style={{ fontSize: '1.2rem', fontWeight: 700, display: 'block', marginBottom: '8px' }}>PennyPilot</span>
-                        <p style={{ color: 'var(--text-secondary)' }}>Free. Open. Private.</p>
-                    </div>
-                    <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                        <Link to="/features.html" className="nav-link">Features</Link>
-                        <Link to="/license.html" className="nav-link">License</Link>
-                        <a href="https://github.com/gkapelakos/PennyPilot/issues" target="_blank" rel="noreferrer" className="nav-link">Report Issue</a>
-                        <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer" className="nav-link">GitHub</a>
-                    </div>
-                </div>
-                {/* ... existing copyright ... */}
-                <div style={{
-                    borderTop: '1px solid var(--border-subtle)',
-                    paddingTop: '24px',
-                    color: 'var(--text-secondary)',
-                    fontSize: '0.9rem'
-                }}>
-                    &copy; {new Date().getFullYear()} PennyPilot Contributors.
-                </div>
-            </div>
-            <style>{`
-                @media (max-width: 600px) {
-                    .footer-content { flex-direction: column; align-items: center; text-align: center; }
-                }
-            `}</style>
-        </footer>
-    )
+  return (
+    <footer className="footer">
+      <div className="container">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 'var(--space-8)', marginBottom: 'var(--space-8)' }}>
+          <div>
+            <span style={{ fontSize: '1.1rem', fontWeight: 700, display: 'block', marginBottom: 'var(--space-1)' }}>PennyPilot</span>
+            <p style={{ color: 'var(--text-muted)', fontSize: 'var(--text-sm)' }}>Free. Open. Private.</p>
+          </div>
+          <div style={{ display: 'flex', gap: 'var(--space-6)', flexWrap: 'wrap' }}>
+            <a href="#how-it-works" className="nav-link">How It Works</a>
+            <a href="#privacy" className="nav-link">Privacy</a>
+            <a href="#open-source" className="nav-link">Open Source</a>
+            <a href="https://github.com/gkapelakos/PennyPilot/issues" target="_blank" rel="noreferrer" className="nav-link">Report Issue</a>
+            <a href="https://github.com/gkapelakos/PennyPilot" target="_blank" rel="noreferrer" className="nav-link">GitHub</a>
+          </div>
+        </div>
+        <div style={{ borderTop: '1px solid var(--border-default)', paddingTop: 'var(--space-6)', color: 'var(--text-muted)', fontSize: 'var(--text-sm)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 'var(--space-4)' }}>
+          <span>&copy; {new Date().getFullYear()} PennyPilot Contributors.</span>
+          <span>MIT Licensed</span>
+        </div>
+      </div>
+    </footer>
+  )
 }
